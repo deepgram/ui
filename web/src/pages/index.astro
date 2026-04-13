@@ -1,0 +1,397 @@
+---
+import '../styles/global.css';
+
+const REGISTRY_BASE = 'https://cdn.deepgram.com/ui/r';
+
+const components = [
+  { name: 'orb',                    desc: 'Animated canvas orb — idle / listening / talking states, audio-reactive',       color: 'green' },
+  { name: 'voice-button',           desc: 'All-in-one voice button with 5 lifecycle states — idle, connecting, listening, speaking, error', color: 'green' },
+  { name: 'agent-conversation',     desc: 'Scrollable transcript with auto-scroll and role-based bubble variants',          color: 'blue'  },
+  { name: 'agent-text-input',       desc: 'Accessible text input with shadcn Textarea and send Button',                    color: 'blue'  },
+  { name: 'agent-microphone-button',desc: 'Radix Toggle for mic mute/unmute with 4 states',                                color: 'blue'  },
+  { name: 'agent-speaker-button',   desc: 'Radix Toggle for speaker mute/unmute',                                          color: 'blue'  },
+  { name: 'agent-start-button',     desc: 'Start/stop session button — fill vs ghost based on state',                      color: 'blue'  },
+  { name: 'agent-status',           desc: 'Inline status indicator reflecting agent connection state',                     color: 'subtle'},
+  { name: 'mic-selector',           desc: 'Microphone device picker with permission handling — powered by Radix Select',   color: 'subtle'},
+  { name: 'response',               desc: 'Lightweight markdown renderer with Tailwind Typography prose',                  color: 'subtle'},
+  { name: 'bar-visualizer',         desc: 'Real-time audio frequency bar visualizer (canvas)',                             color: 'subtle'},
+  { name: 'live-waveform',          desc: 'Canvas waveform driven by a volume getter function',                            color: 'subtle'},
+];
+---
+
+<html lang="en" prefix="og: https://ogp.me/ns#">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="generator" content={Astro.generator} />
+
+  <title>Deepgram UI — Voice Agent Components for React</title>
+  <meta name="description" content="Open-source React component library for Deepgram Voice Agent. Built on shadcn/ui and Tailwind v4. Install any component with npx shadcn add." />
+  <meta name="keywords" content="Deepgram, voice agent, React components, shadcn, Tailwind, UI library, speech AI, microphone, audio visualizer, orb" />
+  <meta name="author" content="Deepgram" />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="https://ui.deepgram.com/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="Deepgram UI" />
+  <meta property="og:title" content="Deepgram UI — Voice Agent Components for React" />
+  <meta property="og:description" content="Open-source React components for voice agents. Built on shadcn/ui and Tailwind v4. Install any component instantly." />
+  <meta property="og:url" content="https://ui.deepgram.com/" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@DeepgramAI" />
+  <meta name="twitter:title" content="Deepgram UI — Voice Agent Components for React" />
+  <meta name="twitter:description" content="Open-source React components for voice agents. Built on shadcn/ui and Tailwind v4." />
+
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+  <link rel="icon" href="/favicon.ico" sizes="48x48" />
+  <meta name="theme-color" content="#13ef95" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;0,14..32,800;0,14..32,900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet" />
+
+  <link rel="alternate" type="text/plain" href="/llms.txt" title="LLMs.txt — AI-readable site summary" />
+  <link rel="alternate" type="text/plain" href="/llms-full.txt" title="LLMs-full.txt — Full component registry reference" />
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "@id": "https://ui.deepgram.com/#software",
+        "name": "Deepgram UI",
+        "description": "Open-source React component library for Deepgram Voice Agent. Built on shadcn/ui and Tailwind v4.",
+        "url": "https://ui.deepgram.com/",
+        "applicationCategory": "DeveloperApplication",
+        "operatingSystem": "Any",
+        "programmingLanguage": "TypeScript",
+        "license": "https://github.com/deepgram/ui/blob/main/LICENSE",
+        "codeRepository": "https://github.com/deepgram/ui",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+        "publisher": { "@type": "Organization", "name": "Deepgram", "url": "https://deepgram.com" }
+      }
+    ]
+  })} />
+</head>
+
+<body class="bg-dg-black text-dg-text font-sans overflow-x-hidden" style="font-feature-settings: 'cv02','cv03','cv04','cv11';">
+
+  <!-- dot grid -->
+  <div class="fixed inset-0 pointer-events-none z-0 select-none" aria-hidden="true"
+       style="background-image: radial-gradient(circle, rgba(44,44,51,0.35) 1px, transparent 1px); background-size: 28px 28px;"></div>
+  <!-- vignette -->
+  <div class="fixed inset-0 pointer-events-none z-0" aria-hidden="true"
+       style="background: radial-gradient(ellipse 100% 50% at 50% 0%, transparent 30%, #050506 100%);"></div>
+
+  <!-- ══ NAV ══ -->
+  <header class="fixed top-0 inset-x-0 z-50 px-4 pt-4">
+    <nav class="max-w-5xl mx-auto h-12 flex items-center justify-between px-4 rounded-2xl border border-dg-border/60 backdrop-blur-2xl bg-dg-bg/60 shadow-xl shadow-black/40">
+      <div class="flex items-center gap-2.5">
+        <img src="/wordmark-dark.svg" alt="Deepgram" style="height:18px; width:auto;" />
+        <span class="px-1.5 py-0.5 rounded-md text-[10px] font-mono font-semibold tracking-wide bg-dg-green/12 border border-dg-green/25 text-dg-green">UI</span>
+      </div>
+      <div class="flex items-center gap-5">
+        <a href="https://github.com/deepgram/ui" target="_blank" rel="noopener"
+           class="text-xs text-dg-muted hover:text-dg-text transition-colors duration-150 flex items-center gap-1.5">
+          <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+          <span class="hidden sm:inline">GitHub</span>
+        </a>
+        <a href="https://developers.deepgram.com/docs/voice-agent" target="_blank" rel="noopener"
+           class="text-xs text-dg-muted hover:text-dg-text transition-colors duration-150">Docs</a>
+      </div>
+    </nav>
+  </header>
+
+  <main class="relative z-10">
+
+    <!-- ══ HERO ══ -->
+    <section class="relative pt-44 pb-32 px-6 overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[600px] opacity-30"
+             style="background: conic-gradient(from 90deg at 70% 55%, #000, #0f7466), conic-gradient(from 270deg at 30% 55%, #0f7466, #000); background-blend-mode: screen; mix-blend-mode: screen; filter: blur(60px);"></div>
+        <div class="absolute -top-20 left-1/2 -translate-x-1/2 w-[600px] h-[400px]"
+             style="background: radial-gradient(ellipse, #13ef9514 0%, transparent 70%);"></div>
+        <div class="absolute top-40 left-1/4 w-80 h-80"
+             style="background: radial-gradient(ellipse, #149afb0c 0%, transparent 70%);"></div>
+      </div>
+
+      <div class="relative max-w-4xl mx-auto text-center">
+        <!-- badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full mb-10 text-xs text-dg-muted"
+             style="border: 1px solid transparent; background: linear-gradient(#1a1a1f, #1a1a1f) padding-box, linear-gradient(90deg, #2c2c33, #13ef9540) border-box;">
+          <span class="relative inline-flex">
+            <span class="animate-ping absolute inline-flex h-2 w-2 rounded-full bg-dg-green opacity-40"></span>
+            <span class="relative inline-flex h-2 w-2 rounded-full bg-dg-green"></span>
+          </span>
+          Open source &nbsp;·&nbsp; shadcn/ui &nbsp;·&nbsp; Tailwind v4
+        </div>
+
+        <h1 class="font-black tracking-tight leading-[0.92] mb-8"
+            style="font-size: clamp(3rem, 8vw, 5.5rem); letter-spacing: -0.04em;">
+          <span class="block text-dg-text">Voice Agent UI,</span>
+          <span class="block text-gradient" style="padding-bottom: 0.1em;">ready to ship.</span>
+        </h1>
+
+        <p class="text-lg text-dg-muted max-w-xl mx-auto mb-10 leading-relaxed font-light">
+          React components for Deepgram Voice Agent. Built on shadcn/ui and Tailwind v4.
+          Copy any component into your project in one command.
+        </p>
+
+        <!-- primary CTA -->
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-3 mb-6">
+          <div class="inline-flex items-center gap-3 px-5 py-3.5 rounded-xl font-mono text-sm backdrop-blur-sm"
+               style="border: 1px solid transparent; background: linear-gradient(#111115, #111115) padding-box, linear-gradient(90deg, #2c2c33 0%, #13ef9532 50%, #2c2c33 100%) border-box; box-shadow: 0 0 0 1px #0003, 0 8px 32px #0005;">
+            <span class="text-dg-green/50 select-none">$</span>
+            <span id="install-cmd" class="text-dg-text">npx shadcn add https://cdn.deepgram.com/ui/r/orb.json</span>
+            <button onclick="copyInstall()" aria-label="Copy install command"
+                    class="text-dg-pebble hover:text-dg-green transition-colors ml-1">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+              </svg>
+            </button>
+          </div>
+          <a href="https://github.com/deepgram/ui" target="_blank" rel="noopener"
+             class="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl text-sm font-semibold text-dg-muted hover:text-dg-text border border-dg-border/60 hover:border-dg-border transition-colors">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+            View on GitHub
+          </a>
+        </div>
+
+        <p class="text-xs text-dg-muted">
+          Or install via npm: <code class="font-mono text-dg-fog px-1.5 py-0.5 rounded" style="background:#1a1a1f; border:1px solid #2c2c33;">npm install @deepgram/ui</code>
+        </p>
+      </div>
+    </section>
+
+    <!-- ══ STATS ══ -->
+    <div style="border-top: 1px solid #2c2c3340; border-bottom: 1px solid #2c2c3340;">
+      <div class="max-w-5xl mx-auto py-6 px-6 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center">
+        {[
+          ['12', 'Components'],
+          ['shadcn/ui', 'Built on'],
+          ['Tailwind v4', 'Styling'],
+          ['MIT', 'License'],
+        ].map(([v, l]) => (
+          <div>
+            <div class="font-bold text-dg-text" style="font-size:1.25rem;">{v}</div>
+            <div class="text-xs text-dg-muted mt-1">{l}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <!-- ══ HOW IT WORKS ══ -->
+    <section class="py-28 px-6">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+          <p class="text-xs font-bold text-dg-green uppercase tracking-widest mb-5">REGISTRY MODEL</p>
+          <h2 class="font-black tracking-tight mb-3" style="font-size: clamp(1.75rem, 4vw, 2.5rem); letter-spacing: -0.03em;">
+            You own the code.
+          </h2>
+          <p class="text-dg-muted text-base max-w-lg mx-auto">Components are copied into your project — not imported from a black box. Customize freely. No breaking updates.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-3 gap-4">
+          {[
+            {
+              n: '01',
+              title: 'Pick a component',
+              desc: 'Browse the registry. Each component is a self-contained .tsx file with Tailwind classes and Radix primitives.',
+              code: 'npx shadcn add\n  https://cdn.deepgram.com/ui/r/orb.json',
+              color: 'green',
+            },
+            {
+              n: '02',
+              title: 'It lands in your project',
+              desc: 'The file is copied to components/ui/. npm deps are installed automatically. You own the source.',
+              code: '✓ components/ui/Orb.tsx\n✓ @deepgram/react installed',
+              color: 'blue',
+            },
+            {
+              n: '03',
+              title: 'Use it',
+              desc: 'Import, wrap in AgentProvider, done. All components consume @deepgram/react hooks under the hood.',
+              code: 'import { Orb } from\n  "@/components/ui/Orb"',
+              color: 'subtle',
+            },
+          ].map(({ n, title, desc, code, color }) => (
+            <div class:list={[`gb-${color}`, 'rounded-2xl']}>
+              <div class="rounded-2xl h-full p-6 flex flex-col" style="background: linear-gradient(160deg, #1a1a1f 0%, #161619 100%);">
+                <div class="font-mono text-xs text-dg-green/60 mb-4">{n}</div>
+                <h3 class="font-bold text-base mb-2 text-dg-text">{title}</h3>
+                <p class="text-sm text-dg-muted leading-relaxed flex-1 mb-5">{desc}</p>
+                <div class="px-3 py-2.5 rounded-lg font-mono text-xs leading-6 whitespace-pre text-dg-fog"
+                     style="background:#0b0b0c; border:1px solid #2c2c33;">{code}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ COMPONENTS ══ -->
+    <section class="py-28 px-6" style="border-top: 1px solid #2c2c3330;">
+      <div class="max-w-5xl mx-auto">
+        <div class="text-center mb-16">
+          <p class="text-xs font-bold text-dg-green uppercase tracking-widest mb-5">ALL COMPONENTS</p>
+          <h2 class="font-black tracking-tight mb-3" style="font-size: clamp(1.75rem, 4vw, 2.5rem); letter-spacing: -0.03em;">
+            Everything you need.
+          </h2>
+          <p class="text-dg-muted text-base max-w-xl mx-auto">
+            From animated orbs to accessible mic selectors. Each component is production-ready and fully themeable.
+          </p>
+        </div>
+
+        <div class="columns-1 sm:columns-2 lg:columns-3 gap-4">
+          {components.map(({ name, desc, color }) => (
+            <div class:list={[`gb-${color}`, 'rounded-2xl mb-4 break-inside-avoid group']}>
+              <div class="rounded-2xl p-5" style="background: linear-gradient(160deg, #1a1a1f 0%, #161619 100%);">
+                <div class="flex items-center justify-between mb-3">
+                  <span class="font-mono text-xs text-dg-green">{name}</span>
+                  <a href={`${REGISTRY_BASE}/${name}.json`} target="_blank" rel="noopener"
+                     class="text-dg-pebble hover:text-dg-blue transition-colors" aria-label={`View ${name} registry JSON`}>
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                  </a>
+                </div>
+                <p class="text-xs text-dg-muted leading-relaxed mb-4">{desc}</p>
+                <button
+                  onclick={`copyCmd('npx shadcn add ${REGISTRY_BASE}/${name}.json')`}
+                  class="w-full flex items-center gap-2 px-3 py-2 rounded-lg font-mono text-xs text-dg-muted hover:text-dg-fog transition-colors text-left group/btn"
+                  style="background:#0b0b0c; border:1px solid #2c2c33;"
+                  aria-label={`Copy install command for ${name}`}>
+                  <span class="text-dg-green/50 select-none">$</span>
+                  <span class="flex-1 truncate">npx shadcn add {REGISTRY_BASE}/{name}.json</span>
+                  <svg class="w-3.5 h-3.5 opacity-0 group-hover/btn:opacity-100 transition-opacity flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ npm SECTION ══ -->
+    <section class="py-28 px-6" style="border-top: 1px solid #2c2c3330;">
+      <div class="max-w-5xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <p class="text-xs font-bold text-dg-blue uppercase tracking-widest mb-5">ALSO ON NPM</p>
+          <h2 class="font-black tracking-tight mb-5 leading-tight" style="font-size: clamp(1.75rem, 4vw, 2.5rem); letter-spacing: -0.03em;">
+            Prefer a managed<br/>dependency?
+          </h2>
+          <p class="text-dg-muted leading-relaxed mb-8 text-sm">
+            <code class="font-mono text-dg-text text-xs px-1.5 py-0.5 rounded" style="background:#1a1a1f; border:1px solid #2c2c33;">@deepgram/ui</code> is also published to npm.
+            Pre-compiled CSS bundled in — no Tailwind setup required.
+            Same components, managed versioning.
+          </p>
+          <div class="space-y-4">
+            {[
+              ['Zero config', 'Import a component, styles are included automatically.'],
+              ['Versioned releases', 'Pin to a version, get predictable updates.'],
+              ['Same source', 'Registry and npm package share identical source files.'],
+            ].map(([label, desc]) => (
+              <div class="flex gap-3 items-start">
+                <div class="mt-0.5 w-5 h-5 rounded-full flex-shrink-0 flex items-center justify-center" style="background:#149afb15; border: 1px solid #149afb35;">
+                  <svg class="w-2.5 h-2.5 text-dg-blue" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"/>
+                  </svg>
+                </div>
+                <div>
+                  <div class="font-semibold text-sm text-dg-text">{label}</div>
+                  <div class="text-xs text-dg-muted mt-0.5">{desc}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="rounded-2xl overflow-hidden shadow-2xl shadow-black/60"
+             style="border: 1px solid transparent; background: linear-gradient(#0d0d11, #0d0d11) padding-box, linear-gradient(145deg, #2c2c33 0%, #149afb25 100%) border-box;">
+          <div class="flex items-center gap-1.5 px-4 py-3.5" style="background:#090909; border-bottom:1px solid #2c2c33;">
+            <span class="w-2.5 h-2.5 rounded-full bg-[#ff5f56]"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#ffbd2e]"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-[#27c93f]"></span>
+          </div>
+          <div class="p-5 font-mono text-sm leading-7 space-y-0.5">
+            <div class="text-dg-muted text-xs"># Install</div>
+            <div><span class="text-dg-green">$</span> <span class="text-dg-fog"> npm install @deepgram/ui</span></div>
+            <div class="text-dg-muted text-xs pt-3"># Use</div>
+            <div class="text-dg-fog">import {'{'} AgentProvider {'}'} from <span class="text-amber-400">'@deepgram/react'</span></div>
+            <div class="text-dg-fog">import {'{'} Orb, VoiceButton {'}'} from <span class="text-amber-400">'@deepgram/ui'</span></div>
+            <div class="text-dg-muted text-xs pt-3"># Styles auto-included — no extra import needed</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══ CTA ══ -->
+    <section class="py-28 px-6" style="border-top: 1px solid #2c2c3330;">
+      <div class="max-w-2xl mx-auto text-center">
+        <div class="relative rounded-3xl overflow-hidden p-12"
+             style="border: 1px solid transparent; background: linear-gradient(#0e0e12, #0e0e12) padding-box, linear-gradient(135deg, #2c2c33 0%, #13ef9525 50%, #149afb18 100%) border-box; box-shadow: inset 0 0 80px #13ef9508;">
+          <div class="absolute top-0 right-0 w-64 h-64 pointer-events-none" aria-hidden="true"
+               style="background: radial-gradient(ellipse at top right, #13ef9510 0%, transparent 70%);"></div>
+          <div class="absolute bottom-0 left-0 w-48 h-48 pointer-events-none" aria-hidden="true"
+               style="background: radial-gradient(ellipse at bottom left, #149afb08 0%, transparent 70%);"></div>
+          <div class="relative">
+            <h2 class="font-black tracking-tight mb-4" style="font-size: clamp(1.75rem, 4vw, 2.5rem); letter-spacing: -0.03em;">
+              Start building now.
+            </h2>
+            <p class="text-dg-muted text-base mb-10 max-w-md mx-auto">
+              Add your first component, wire up AgentProvider, and ship a voice agent in minutes.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-3">
+              <a href="https://developers.deepgram.com/docs/voice-agent" target="_blank" rel="noopener"
+                 class="btn-animated-bg btn-glow inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-bold text-dg-black">
+                Read the docs
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/>
+                </svg>
+              </a>
+              <a href="https://github.com/deepgram/ui" target="_blank" rel="noopener"
+                 class="inline-flex items-center gap-2 px-6 py-3 rounded-xl text-sm font-semibold text-dg-muted hover:text-dg-text border border-dg-border/60 hover:border-dg-border transition-colors">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                Star on GitHub
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ══ FOOTER ══ -->
+  <footer style="border-top: 1px solid #2c2c3330;">
+    <div class="max-w-5xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-dg-muted">
+      <div class="flex items-center gap-2">
+        <img src="/wordmark-dark.svg" alt="Deepgram" style="height:14px; width:auto; opacity:0.5;" />
+      </div>
+      <div class="flex items-center gap-5">
+        <a href="/llms.txt" class="hover:text-dg-text transition-colors">llms.txt</a>
+        <a href="/llms-full.txt" class="hover:text-dg-text transition-colors">llms-full.txt</a>
+        <a href="https://cdn.deepgram.com/ui/r/index.json" target="_blank" rel="noopener" class="hover:text-dg-text transition-colors">registry</a>
+        <a href="https://github.com/deepgram/ui" target="_blank" rel="noopener" class="hover:text-dg-text transition-colors">GitHub</a>
+        <a href="https://deepgram.com" target="_blank" rel="noopener" class="hover:text-dg-text transition-colors">deepgram.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function copyInstall() {
+      const cmd = (document.getElementById('install-cmd') as HTMLElement).textContent ?? '';
+      navigator.clipboard.writeText(cmd);
+    }
+    function copyCmd(cmd: string) {
+      navigator.clipboard.writeText(cmd);
+    }
+    (window as any).copyInstall = copyInstall;
+    (window as any).copyCmd = copyCmd;
+  </script>
+</body>
+</html>

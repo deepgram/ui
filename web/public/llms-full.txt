@@ -1,0 +1,219 @@
+# Deepgram UI — Full Component Reference
+
+> Complete reference for AI tools. Registry base: https://cdn.deepgram.com/ui/r/
+
+## Installation
+
+### shadcn registry (recommended)
+```
+npx shadcn add https://cdn.deepgram.com/ui/r/<component>.json
+```
+Components are copied into your project at components/ui/. You own the source.
+
+### npm package
+```
+npm install @deepgram/ui @deepgram/react @deepgram/agent
+```
+Pre-compiled CSS auto-included on import. No Tailwind setup required.
+
+## Prerequisites
+
+All components require:
+- React 18+
+- `@deepgram/react` (for agent state hooks)
+- Tailwind v4 (registry installs only — npm handles CSS itself)
+- shadcn/ui base setup (for registry installs)
+
+## Components
+
+### orb
+Registry: https://cdn.deepgram.com/ui/r/orb.json
+Type: registry:ui
+Description: Animated canvas orb with idle/listening/talking states. Audio-reactive via getInputVolume/getOutputVolume getter functions. Runs a requestAnimationFrame loop — no React re-renders during animation.
+Props:
+  - state: "idle" | "listening" | "talking"
+  - getInputVolume?: () => number
+  - getOutputVolume?: () => number
+  - size?: number (default: 200)
+  - className?: string
+No npm dependencies beyond React.
+
+### voice-button
+Registry: https://cdn.deepgram.com/ui/r/voice-button.json
+Type: registry:ui
+npm dependencies: @deepgram/react
+Registry dependencies: utils, button
+Description: All-in-one voice lifecycle button. Click to start/stop. Reflects 5 states via data-voice-state attribute: idle, connecting, listening, speaking, error.
+Props:
+  - className?: string
+  - labels?: Partial<Record<VoiceButtonState, unknown>>
+  - onClick?: () => void
+Requires: AgentProvider ancestor
+
+### agent-conversation
+Registry: https://cdn.deepgram.com/ui/r/agent-conversation.json
+Type: registry:ui
+npm dependencies: @deepgram/react
+Registry dependencies: utils, scroll-area
+Description: Scrollable conversation transcript. Auto-scrolls to bottom on new messages. Role-based bubble styling (user = right-aligned green, assistant = left-aligned card).
+Props:
+  - className?: string
+  - itemClassName?: string
+  - renderMessage?: (entry: ConversationEntry) => unknown
+  - emptyState?: unknown
+  - autoScroll?: boolean (default: true)
+Requires: AgentProvider ancestor
+
+### agent-text-input
+Registry: https://cdn.deepgram.com/ui/r/agent-text-input.json
+Type: registry:ui
+npm dependencies: @deepgram/react
+Registry dependencies: utils, button, textarea
+Description: Text input for sending messages to the agent. Enter to send, Shift+Enter for newline. Disabled when agent not connected.
+Props:
+  - className?: string
+  - placeholder?: string
+  - disabled?: boolean
+  - onSend?: (text: string) => void
+  - submitButton?: unknown (custom send button content)
+Requires: AgentProvider ancestor
+
+### agent-microphone-button
+Registry: https://cdn.deepgram.com/ui/r/agent-microphone-button.json
+Type: registry:ui
+npm dependencies: @deepgram/react
+Registry dependencies: utils, button, toggle
+Description: Radix Toggle for mic mute/unmute. 4 states: inactive, active, muted, disabled. Returns null when not enabled.
+Props:
+  - className?: string
+  - activeLabel?: unknown
+  - mutedLabel?: unknown
+  - disabledLabel?: unknown
+  - onClick?: () => void
+Requires: AgentProvider ancestor
+
+### agent-speaker-button
+Registry: https://cdn.deepgram.com/ui/r/agent-speaker-button.json
+Type: registry:ui
+npm dependencies: @deepgram/react
+Registry dependencies: utils, toggle
+Description: Radix Toggle for speaker mute/unmute. Returns null when not enabled.
+Props:
+  - className?: string
+  - activeLabel?: unknown
+  - mutedLabel?: unknown
+  - onClick?: () => void
+Requires: AgentProvider ancestor
+
+### agent-start-button
+Registry: https://cdn.deepgram.com/ui/r/agent-start-button.json
+Type: registry:ui
+npm dependencies: @deepgram/react
+Registry dependencies: utils, button
+Description: Start/stop session button. Primary fill when idle, outline when connected or reconnecting.
+Props:
+  - className?: string
+  - startLabel?: unknown
+  - connectingLabel?: unknown
+  - stopLabel?: unknown
+  - reconnectingLabel?: unknown
+  - onClick?: () => void
+Requires: AgentProvider ancestor
+
+### agent-status
+Registry: https://cdn.deepgram.com/ui/r/agent-status.json
+Type: registry:ui
+npm dependencies: @deepgram/react
+Registry dependencies: utils
+Description: Inline status indicator. Exposes data-agent-status and data-state attributes for styling.
+Props:
+  - className?: string
+  - labels?: Partial<Record<string, string>>
+Requires: AgentProvider ancestor
+
+### mic-selector
+Registry: https://cdn.deepgram.com/ui/r/mic-selector.json
+Type: registry:ui
+Registry dependencies: utils, select
+Description: Microphone device picker. Requests permission on mount, enumerates devices, listens for plug/unplug events. No agent dep — standalone.
+Props:
+  - value?: string
+  - onValueChange?: (deviceId: string) => void
+  - className?: string
+  - disabled?: boolean
+No agent dependency.
+
+### response
+Registry: https://cdn.deepgram.com/ui/r/response.json
+Type: registry:ui
+devDependencies: @tailwindcss/typography
+Registry dependencies: utils
+Description: Lightweight markdown renderer using regex parsing. Applies Tailwind Typography prose class. Supports bold, italic, inline code, code blocks, lists, headings, hr, links.
+Props:
+  - children: string (markdown content, supports streaming)
+  - className?: string
+No agent dependency.
+
+### bar-visualizer
+Registry: https://cdn.deepgram.com/ui/r/bar-visualizer.json
+Type: registry:ui
+npm dependencies: @deepgram/react
+Description: Canvas-based real-time audio frequency bar visualizer. Reads --dg-va-primary CSS variable for bar color. Runs rAF loop, aria-hidden.
+Props:
+  - source?: "input" | "output" (default: "output")
+  - barCount?: number (default: 16)
+  - className?: string
+Requires: AgentProvider ancestor
+
+### live-waveform
+Registry: https://cdn.deepgram.com/ui/r/live-waveform.json
+Type: registry:ui
+Description: Canvas waveform driven by a volume getter function. No React re-renders during animation.
+Props:
+  - getVolume: (() => number) | (() => number)[]
+  - active?: boolean (default: true)
+  - color?: string
+  - lineWidth?: number (default: 2)
+  - className?: string
+No agent dependency.
+
+## Hooks (@deepgram/react)
+
+All hooks require AgentProvider ancestor except useDeepgramAgent (standalone).
+
+- useAgentState() → { state, isActive, isConnecting, isReconnecting, start, stop }
+- useAgentMode() → { mode, isSpeaking, isListening }
+- useAgentConversation() → { conversation, sendUserMessage }
+- useAgentMicrophone() → { micMuted, micActive, toggle, getInputVolume, enabled }
+- useAgentPlayer() → { outputMuted, toggle, getOutputVolume, enabled }
+- useAgentControls() → { injectText, updateSettings }
+- useAgentClientTool(name, handler) → void
+- useAgentSession() → AgentSession | null
+- useDeepgramAgent(config) → standalone hook (no provider)
+
+## AgentProvider
+
+```tsx
+import { AgentProvider } from '@deepgram/react'
+
+<AgentProvider
+  config={{
+    auth: { tokenFactory: () => fetch('/api/token').then(r => r.text()) },
+    agent: { think: { type: 'open_ai', model: 'gpt-4o-mini' } },
+    audio: {
+      input: { encoding: 'linear16', sampleRate: 16000 },
+      output: { encoding: 'linear16', sampleRate: 24000 },
+    },
+  }}
+>
+  {/* components here */}
+</AgentProvider>
+```
+
+## Links
+
+- GitHub: https://github.com/deepgram/ui
+- Registry index: https://cdn.deepgram.com/ui/r/index.json
+- Deepgram docs: https://developers.deepgram.com/docs/voice-agent
+- npm @deepgram/ui: https://www.npmjs.com/package/@deepgram/ui
+- npm @deepgram/react: https://www.npmjs.com/package/@deepgram/react

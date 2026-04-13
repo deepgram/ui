@@ -1,0 +1,44 @@
+# Deepgram UI
+
+> Open-source React component library for Deepgram Voice Agent. Built on shadcn/ui and Tailwind v4.
+
+## Install
+
+Components are available via the shadcn registry or npm:
+
+- Registry: `npx shadcn add https://cdn.deepgram.com/ui/r/<component>.json`
+- npm: `npm install @deepgram/ui`
+
+## Registry
+
+- [Component index](https://cdn.deepgram.com/ui/r/index.json): Full registry index
+- [Full component reference](/llms-full.txt): Detailed component listing for AI tools
+
+## Core Packages
+
+- `@deepgram/agent` — Core WebSocket SDK (AgentSession, AgentMicrophone, AgentPlayer)
+- `@deepgram/react` — React hooks and provider (useAgentState, useAgentMode, useAgentConversation, etc.)
+- `@deepgram/ui` — Pre-built React components (npm, pre-compiled CSS)
+- `@deepgram/agent-widget` — Self-contained CDN widget (no framework required)
+
+## Components
+
+- `orb` — Animated canvas orb with idle/listening/talking states, audio-reactive
+- `voice-button` — All-in-one voice button with 5 lifecycle states
+- `agent-conversation` — Scrollable transcript with auto-scroll
+- `agent-text-input` — Text input with shadcn Textarea and Button
+- `agent-microphone-button` — Radix Toggle for mic mute/unmute
+- `agent-speaker-button` — Radix Toggle for speaker mute/unmute
+- `agent-start-button` — Start/stop session button
+- `agent-status` — Connection state indicator
+- `mic-selector` — Microphone device picker with Radix Select
+- `response` — Markdown renderer with Tailwind Typography
+- `bar-visualizer` — Real-time audio frequency bar visualizer (canvas)
+- `live-waveform` — Canvas waveform driven by a volume getter
+
+## Links
+
+- [GitHub](https://github.com/deepgram/ui)
+- [npm: @deepgram/ui](https://www.npmjs.com/package/@deepgram/ui)
+- [npm: @deepgram/react](https://www.npmjs.com/package/@deepgram/react)
+- [Deepgram Docs](https://developers.deepgram.com/docs/voice-agent)

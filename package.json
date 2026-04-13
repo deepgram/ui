@@ -2,7 +2,8 @@
   "name": "@deepgram/ui-monorepo",
   "private": true,
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "web"
   ],
   "packageManager": "bun@1.3.10",
   "scripts": {
@@ -12,7 +13,8 @@
     "dev": "bun run --filter '@deepgram/ui' dev",
     "typecheck": "bun run --filter '@deepgram/ui' typecheck",
     "test": "bun run --filter '@deepgram/ui' test",
-    "lint": "bun run --filter '@deepgram/ui' lint"
+    "lint": "bun run --filter '@deepgram/ui' lint",
+    "build:web": "bun run --filter 'web' build"
   },
   "overrides": {
     "brace-expansion": "5.0.5",
