@@ -24,7 +24,7 @@
   },
   "dependencies": {
     "@deepgram/agent": "file:../../../agent/packages/sdk",
-    "@deepgram/react": "file:../../../agent/packages/react",
+    "@deepgram/react": "file:../../../react/packages/react",
     "@radix-ui/react-scroll-area": "1.2.10",
     "@radix-ui/react-select": "2.2.6",
     "@radix-ui/react-slot": "1.2.4",

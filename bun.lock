@@ -17,7 +17,7 @@
       "version": "1.0.0",
       "dependencies": {
         "@deepgram/agent": "file:../../../agent/packages/sdk",
-        "@deepgram/react": "file:../../../agent/packages/react",
+        "@deepgram/react": "file:../../../react/packages/react",
         "@radix-ui/react-scroll-area": "1.2.10",
         "@radix-ui/react-select": "2.2.6",
         "@radix-ui/react-slot": "1.2.4",
@@ -52,6 +52,7 @@
   },
   "overrides": {
     "@deepgram/agent": "file:../agent/packages/sdk",
+    "@deepgram/react": "file:../react/packages/react",
     "brace-expansion": "5.0.5",
   },
   "packages": {
@@ -571,7 +572,7 @@
 
     "@deepgram/ui/@deepgram/agent": ["@deepgram/agent@file:../agent/packages/sdk", { "dependencies": { "@deepgram/sdk": "5.0.0", "eventemitter3": "5.0.4" }, "devDependencies": { "@ricky0123/vad-web": "0.0.30", "@types/node": "22.15.3", "happy-dom": "20.8.9", "onnxruntime-web": "1.24.3", "terser": "5.46.1", "typescript": "5.9.3", "vite": "8.0.5", "vite-plugin-dts": "4.5.4" }, "peerDependencies": { "@ricky0123/vad-web": "0.0.30", "onnxruntime-web": "1.24.3" }, "optionalPeers": ["@ricky0123/vad-web", "onnxruntime-web"] }],
 
-    "@deepgram/ui/@deepgram/react": ["@deepgram/react@file:../agent/packages/react", { "dependencies": { "@deepgram/agent": "workspace:*" }, "devDependencies": { "@testing-library/react": "16.3.2", "@types/react": "19.2.14", "@types/react-dom": "19.2.3", "@vitejs/plugin-react": "6.0.1", "eventemitter3": "5.0.4", "happy-dom": "20.8.9", "react": "19.2.4", "react-dom": "19.2.4", "terser": "5.46.1", "typescript": "5.9.3", "vite": "8.0.5", "vite-plugin-dts": "4.5.4" }, "peerDependencies": { "react": ">=18.0.0", "react-dom": ">=18.0.0" } }],
+    "@deepgram/ui/@deepgram/react": ["@deepgram/react@file:../react/packages/react", { "dependencies": { "@deepgram/agent": "file:../../../agent/packages/sdk" }, "devDependencies": { "@testing-library/react": "16.3.2", "@types/react": "19.2.14", "@types/react-dom": "19.2.3", "@vitejs/plugin-react": "6.0.1", "eventemitter3": "5.0.4", "happy-dom": "20.8.9", "react": "19.2.4", "react-dom": "19.2.4", "terser": "5.46.1", "typescript": "5.9.3", "vite": "8.0.5", "vite-plugin-dts": "4.5.4" }, "peerDependencies": { "react": ">=18.0.0", "react-dom": ">=18.0.0" } }],
 
     "@radix-ui/react-collection/@radix-ui/react-slot": ["@radix-ui/react-slot@1.2.3", "", { "dependencies": { "@radix-ui/react-compose-refs": "1.1.2" }, "peerDependencies": { "@types/react": "*", "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc" }, "optionalPeers": ["@types/react"] }, "sha512-aeNmHnBxbi2St0au6VBVC7JXFlhLlOnvIIlePNniyUNAClzmtAUEY8/pBiK3iHjufOlwA+c20/8jngo7xcrg8A=="],
 
