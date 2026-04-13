@@ -1,0 +1,15 @@
+{
+  "name": "@deepgram/ui-registry",
+  "version": "1.0.0",
+  "description": "Static shadcn registry for @deepgram/ui — deploy to ui.deepgram.com/r/",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "bun run src/build.ts",
+    "build:watch": "bun --watch run src/build.ts"
+  },
+  "devDependencies": {
+    "typescript": "5.9.3"
+  },
+  "license": "MIT"
+}

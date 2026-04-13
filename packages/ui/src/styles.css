@@ -1,0 +1,87 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+/* ─── Deepgram design tokens ─────────────────────────────────────────────── */
+@theme {
+  /* Brand */
+  --color-primary: #13ef93;
+  --color-primary-foreground: #000000;
+
+  /* Surfaces */
+  --color-background: light-dark(#ffffff, #18181c);
+  --color-foreground: light-dark(#111827, #ffffff);
+  --color-card: light-dark(#f3f4f6, #222228);
+  --color-card-foreground: light-dark(#111827, #ffffff);
+  --color-popover: light-dark(#ffffff, #222228);
+  --color-popover-foreground: light-dark(#111827, #ffffff);
+  --color-muted: light-dark(#f3f4f6, #222228);
+  --color-muted-foreground: light-dark(#6b7280, #8b8b9a);
+  --color-accent: light-dark(#f9fafb, #1a1a1f);
+  --color-accent-foreground: light-dark(#111827, #ffffff);
+  --color-input: light-dark(#f3f4f6, #1e1e24);
+  --color-border: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.08));
+  --color-ring: #13ef93;
+  --color-secondary: light-dark(#f3f4f6, #222228);
+  --color-secondary-foreground: light-dark(#111827, #ffffff);
+  --color-destructive: light-dark(#dc2626, #ef4444);
+  --color-destructive-foreground: #ffffff;
+
+  /* Radius */
+  --radius: 1rem; /* 16px */
+
+  /* Typography */
+  --font-sans: system-ui, -apple-system, sans-serif;
+}
+
+/* ─── Base: root scope + color-scheme switching ──────────────────────────── */
+@layer base {
+  [data-dg-agent] {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    color-scheme: light dark;
+  }
+
+  [data-dg-agent][data-dg-scheme="light"] { color-scheme: light; }
+  [data-dg-agent][data-dg-scheme="dark"]  { color-scheme: dark; }
+
+  /* Extended tokens without direct shadcn equivalents */
+  :root {
+    --primary-hover: color-mix(in srgb, var(--color-primary) 85%, #000);
+    --primary-active: color-mix(in srgb, var(--color-primary) 70%, #000);
+    --accent-active: light-dark(#f3f4f6, #222228);
+    --warning: #f59e0b;
+    --msg-user-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
+    --msg-user-border: color-mix(in srgb, var(--color-primary) 30%, transparent);
+
+    /* Backward-compat aliases — BarVisualizer + LiveWaveform read these via getComputedStyle */
+    --dg-va-primary: var(--color-primary);
+    --dg-va-border: var(--color-border);
+  }
+}
+
+/* ─── Utilities: keyframe animations ─────────────────────────────────────── */
+@layer utilities {
+  @keyframes dg-va-pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.4; }
+  }
+
+  .animate-dg-pulse-fast {
+    animation: dg-va-pulse 1s ease-in-out infinite;
+  }
+
+  .animate-dg-pulse-slow {
+    animation: dg-va-pulse 1.5s ease-in-out infinite;
+  }
+}
+
+/* ─── Components: rules that can't be expressed as utility classes ────────── */
+@layer components {
+  /* VoiceButton listening glow — color-mix() in box-shadow can't be a Tailwind utility */
+  [data-agent-voice-button][data-voice-state="listening"] {
+    box-shadow:
+      0 0 0 1px var(--color-primary),
+      0 0 12px color-mix(in srgb, var(--color-primary) 20%, transparent);
+  }
+}
