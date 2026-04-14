@@ -15,12 +15,25 @@ import {
   AgentProvider,
   AgentStartButton,
   AgentConversation,
+  AgentMessage,
   AgentTextInput,
   AgentMicrophoneButton,
   AgentSpeakerButton,
   AgentStatus,
+  useAgentConversation,
 } from "@deepgram/ui";
 import "@deepgram/ui/styles.css";
+
+function Conversation() {
+  const { conversation } = useAgentConversation();
+  return (
+    <AgentConversation>
+      {conversation.map((entry) => (
+        <AgentMessage key={entry.id} entry={entry} />
+      ))}
+    </AgentConversation>
+  );
+}
 
 function App() {
   return (
@@ -32,7 +45,7 @@ function App() {
     >
       <div data-dg-agent>
         <AgentStatus />
-        <AgentConversation />
+        <Conversation />
         <AgentTextInput />
         <div>
           <AgentMicrophoneButton />
@@ -51,8 +64,9 @@ function App() {
 
 | Component | Description |
 |-----------|-------------|
-| `AgentStatus` | Connection state indicator (idle, connecting, connected, error) |
-| `AgentConversation` | Scrollable conversation transcript |
+| `AgentStatus` | Connection state indicator (idle, connecting, connected, reconnecting, disconnected) |
+| `AgentConversation` | Scrollable conversation container with auto-scroll — render messages via `children` |
+| `AgentMessage` | Individual message bubble with role-aware styling, avatar, and timestamp |
 | `AgentTextInput` | Text input field for sending messages |
 | `AgentMicrophoneButton` | Microphone mute/unmute toggle |
 | `AgentSpeakerButton` | Speaker mute/unmute toggle |
@@ -67,7 +81,36 @@ function App() {
 | `LiveWaveform` | Canvas-based real-time waveform driven by volume getter(s) |
 | `BarVisualizer` | Frequency bar visualization |
 | `MicSelector` | Microphone device selector dropdown |
-| `Response` | Individual message bubble with role-aware styling |
+| `Response` | Lightweight markdown renderer for AI responses with Tailwind Typography |
+
+### AgentConversation + AgentMessage
+
+`AgentConversation` is a scrollable container. Pass messages as `children` using `AgentMessage`:
+
+```tsx
+import { AgentConversation, AgentMessage, useAgentConversation } from "@deepgram/ui";
+
+function Conversation() {
+  const { conversation } = useAgentConversation();
+  return (
+    <AgentConversation>
+      {conversation.map((entry) => (
+        <AgentMessage key={entry.id} entry={entry} showTimestamp />
+      ))}
+    </AgentConversation>
+  );
+}
+```
+
+AgentMessage props:
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `entry` | `ConversationEntry` | -- | Conversation entry object (required) |
+| `children` | `React.ReactNode` | -- | Custom content (overrides `entry.content`) |
+| `showRole` | `boolean` | `false` | Show "You" / "Agent" label above bubble |
+| `showTimestamp` | `boolean` | `true` | Show timestamp below bubble |
+| `className` | `string` | -- | Additional CSS classes |
 
 ### VoiceButton
 

@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Deepgram Discord
+    url: https://discord.gg/deepgram
+    about: Ask questions and get help from the community
+  - name: Deepgram Documentation
+    url: https://developers.deepgram.com
+    about: Official Deepgram documentation

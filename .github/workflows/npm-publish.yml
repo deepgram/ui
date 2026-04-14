@@ -1,0 +1,70 @@
+name: npm Publish
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      release_created: ${{ steps.release.outputs['packages/ui--release_created'] }}
+      version: ${{ steps.release.outputs['packages/ui--version'] }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  publish:
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          repository: deepgram/agent
+          path: ../agent
+      - uses: actions/checkout@v4
+        with:
+          repository: deepgram/react
+          path: ../react
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.3.10"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          registry-url: https://registry.npmjs.org
+      - name: Build dependencies
+        run: |
+          cd ../agent && bun install && bun run --filter '@deepgram/agent' build
+          cd ../react && bun install && bun run build
+      - run: bun install
+      - run: bun run build
+      - name: Swap file pointers
+        run: |
+          SDK_VERSION=$(node -e "console.log(require('../agent/packages/sdk/package.json').version)")
+          REACT_VERSION=$(node -e "console.log(require('../react/packages/react/package.json').version)")
+          node -e "
+            const fs = require('fs');
+            const pkg = JSON.parse(fs.readFileSync('packages/ui/package.json', 'utf8'));
+            pkg.dependencies['@deepgram/agent'] = SDK_VERSION;
+            pkg.dependencies['@deepgram/react'] = REACT_VERSION;
+            fs.writeFileSync('packages/ui/package.json', JSON.stringify(pkg, null, 2) + '\n');
+          "
+      - run: npm publish --provenance --access public
+        working-directory: packages/ui
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
