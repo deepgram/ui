@@ -9,7 +9,7 @@
     "build:watch": "bun --watch run src/build.ts"
   },
   "devDependencies": {
-    "typescript": "5.9.3"
+    "typescript": "6.0.2"
   },
   "license": "MIT"
 }
