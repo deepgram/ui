@@ -29,12 +29,15 @@ All components require:
 ### orb
 Registry: https://cdn.deepgram.com/ui/r/orb.json
 Type: registry:ui
-Description: Animated canvas orb with idle/listening/talking states. Audio-reactive via getInputVolume/getOutputVolume getter functions. Runs a requestAnimationFrame loop — no React re-renders during animation.
+Description: Animated canvas orb with idle/listening/talking states. Audio-reactive via getInputVolume/getOutputVolume getter functions or direct inputVolume/outputVolume values. Runs a requestAnimationFrame loop — no React re-renders during animation.
 Props:
   - state: "idle" | "listening" | "talking"
+  - colors?: [string, string] (two gradient colors, default: Deepgram brand)
+  - size?: number (default: 200)
   - getInputVolume?: () => number
   - getOutputVolume?: () => number
-  - size?: number (default: 200)
+  - inputVolume?: number (0–1, direct value mode)
+  - outputVolume?: number (0–1, direct value mode)
   - className?: string
 No npm dependencies beyond React.
 
@@ -54,13 +57,11 @@ Requires: AgentProvider ancestor
 Registry: https://cdn.deepgram.com/ui/r/agent-conversation.json
 Type: registry:ui
 npm dependencies: @deepgram/react
-Registry dependencies: utils, scroll-area
-Description: Scrollable conversation transcript. Auto-scrolls to bottom on new messages. Role-based bubble styling (user = right-aligned green, assistant = left-aligned card).
+Registry dependencies: utils
+Description: Scrollable conversation transcript. Auto-scrolls to bottom on new messages. Role-based bubble styling (user = right-aligned green, assistant = left-aligned card). Uses children for content composition.
 Props:
+  - children?: React.ReactNode
   - className?: string
-  - itemClassName?: string
-  - renderMessage?: (entry: ConversationEntry) => unknown
-  - emptyState?: unknown
   - autoScroll?: boolean (default: true)
 Requires: AgentProvider ancestor
 

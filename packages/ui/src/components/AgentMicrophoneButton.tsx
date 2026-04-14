@@ -5,9 +5,9 @@ import { cn } from "../lib/utils.js";
 
 export interface AgentMicrophoneButtonProps {
   className?: string;
-  activeLabel?: unknown;
-  mutedLabel?: unknown;
-  disabledLabel?: unknown;
+  activeLabel?: React.ReactNode;
+  mutedLabel?: React.ReactNode;
+  disabledLabel?: React.ReactNode;
   onClick?: () => void;
 }
 
@@ -57,7 +57,7 @@ export function AgentMicrophoneButton({
         data-state="disabled"
         aria-label="Microphone unavailable"
       >
-        {disabledLabel as React.ReactNode}
+        {disabledLabel}
       </Button>
     ) : null;
   }
@@ -74,7 +74,7 @@ export function AgentMicrophoneButton({
       data-state={state}
       className={cn(toggleClasses, className)}
     >
-      {label as React.ReactNode}
+      {label}
     </Toggle>
   );
 }

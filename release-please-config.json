@@ -1,0 +1,22 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "release-type": "node",
+  "bump-minor-pre-major": true,
+  "bump-patch-for-minor-pre-major": true,
+  "changelog-sections": [
+    { "type": "feat",     "section": "Features" },
+    { "type": "fix",      "section": "Bug Fixes" },
+    { "type": "perf",     "section": "Performance" },
+    { "type": "refactor", "section": "Refactors", "hidden": false },
+    { "type": "docs",     "section": "Documentation", "hidden": true },
+    { "type": "chore",    "section": "Miscellaneous", "hidden": true },
+    { "type": "style",    "section": "Miscellaneous", "hidden": true }
+  ],
+  "separate-pull-requests": true,
+  "packages": {
+    "packages/ui": {
+      "package-name": "@deepgram/ui",
+      "changelog-path": "CHANGELOG.md"
+    }
+  }
+}

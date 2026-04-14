@@ -4,8 +4,8 @@ import { cn } from "../lib/utils.js";
 
 export interface AgentSpeakerButtonProps {
   className?: string;
-  activeLabel?: unknown;
-  mutedLabel?: unknown;
+  activeLabel?: React.ReactNode;
+  mutedLabel?: React.ReactNode;
   onClick?: () => void;
 }
 
@@ -52,7 +52,7 @@ export function AgentSpeakerButton({
         className
       )}
     >
-      {label as React.ReactNode}
+      {label}
     </Toggle>
   );
 }

@@ -9,7 +9,7 @@ export interface AgentTextInputProps {
   placeholder?: string;
   disabled?: boolean;
   onSend?: (text: string) => void;
-  submitButton?: unknown;
+  submitButton?: React.ReactNode;
 }
 
 const SendIcon = () => (
@@ -63,7 +63,7 @@ export function AgentTextInput({
           aria-label="Send"
           className="shrink-0 text-muted-foreground hover:text-primary"
         >
-          {submitButton as React.ReactNode}
+          {submitButton}
         </Button>
       ) : (
         <Button

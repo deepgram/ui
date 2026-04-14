@@ -3,6 +3,7 @@ import { copyFileSync, mkdirSync } from "node:fs";
 import { resolve } from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
+import cssInjected from "vite-plugin-css-injected-by-js";
 import dts from "vite-plugin-dts";
 
 export default defineConfig({
@@ -21,9 +22,6 @@ export default defineConfig({
         "@deepgram/react",
       ],
     },
-    // Don't extract CSS into a separate file from the JS bundle —
-    // keep it injected so importing components auto-includes styles.
-    // We separately copy the standalone styles.css for opt-in import.
     cssCodeSplit: false,
     minify: "terser",
     sourcemap: true,
@@ -31,6 +29,10 @@ export default defineConfig({
   plugins: [
     tailwindcss(),
     react(),
+    // Embed compiled CSS as a self-executing JS string so any bundler
+    // (including @deepgram/agent-widget) gets the styles automatically
+    // when it imports @deepgram/ui/dist/index.js.
+    cssInjected(),
     dts({ rollupTypes: true }),
     // Copy standalone styles.css to dist for @deepgram/ui/styles.css
     {

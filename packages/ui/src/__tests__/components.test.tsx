@@ -39,9 +39,9 @@ describe("AgentStatus", () => {
 describe("AgentConversation", () => {
   beforeEach(resetMocks);
 
-  it("renders empty state when no messages", () => {
+  it("renders children when no messages", () => {
     renderInProvider(
-      <AgentConversation emptyState={<span>No messages</span>} />,
+      <AgentConversation><span>No messages</span></AgentConversation>,
     );
     expect(screen.getByText("No messages")).toBeDefined();
   });

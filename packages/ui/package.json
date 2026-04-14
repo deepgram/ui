@@ -1,6 +1,6 @@
 {
   "name": "@deepgram/ui",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Pre-built, styled React components for Deepgram Voice Agent — Tailwind v4 + shadcn tokens, fully customizable",
   "type": "module",
   "main": "dist/index.cjs",
@@ -53,6 +53,7 @@
     "terser": "5.46.1",
     "typescript": "5.9.3",
     "vite": "8.0.5",
+    "vite-plugin-css-injected-by-js": "4.0.1",
     "vite-plugin-dts": "4.5.4"
   },
   "license": "MIT"

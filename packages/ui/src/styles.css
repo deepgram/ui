@@ -1,29 +1,34 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
+/* Explicitly tell Tailwind v4 to scan component source files for class usage.
+   Without this, auto-detection may miss files in sibling repos / outside the project root. */
+@source "./components";
+@source "./lib";
+
 /* ─── Deepgram design tokens ─────────────────────────────────────────────── */
 @theme {
   /* Brand */
   --color-primary: #13ef93;
   --color-primary-foreground: #000000;
 
-  /* Surfaces */
-  --color-background: light-dark(#ffffff, #18181c);
-  --color-foreground: light-dark(#111827, #ffffff);
-  --color-card: light-dark(#f3f4f6, #222228);
-  --color-card-foreground: light-dark(#111827, #ffffff);
-  --color-popover: light-dark(#ffffff, #222228);
-  --color-popover-foreground: light-dark(#111827, #ffffff);
-  --color-muted: light-dark(#f3f4f6, #222228);
-  --color-muted-foreground: light-dark(#6b7280, #8b8b9a);
-  --color-accent: light-dark(#f9fafb, #1a1a1f);
-  --color-accent-foreground: light-dark(#111827, #ffffff);
-  --color-input: light-dark(#f3f4f6, #1e1e24);
-  --color-border: light-dark(rgba(0, 0, 0, 0.1), rgba(255, 255, 255, 0.08));
+  /* Surfaces — light mode defaults (dark overrides applied on [data-dg-agent]) */
+  --color-background: #ffffff;
+  --color-foreground: #111827;
+  --color-card: #f3f4f6;
+  --color-card-foreground: #111827;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #111827;
+  --color-muted: #f3f4f6;
+  --color-muted-foreground: #6b7280;
+  --color-accent: #f9fafb;
+  --color-accent-foreground: #111827;
+  --color-input: #f3f4f6;
+  --color-border: rgba(0, 0, 0, 0.1);
   --color-ring: #13ef93;
-  --color-secondary: light-dark(#f3f4f6, #222228);
-  --color-secondary-foreground: light-dark(#111827, #ffffff);
-  --color-destructive: light-dark(#dc2626, #ef4444);
+  --color-secondary: #f3f4f6;
+  --color-secondary-foreground: #111827;
+  --color-destructive: #dc2626;
   --color-destructive-foreground: #ffffff;
 
   /* Radius */
@@ -40,16 +45,63 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     color-scheme: light dark;
+
+    /* Widget layout tokens — overridable by embedder */
+    --dg-va-panel-w:  min(440px, 100vw);
+    --dg-va-fab-size: 56px;
+    --dg-va-padding:  16px;
   }
 
-  [data-dg-agent][data-dg-scheme="light"] { color-scheme: light; }
-  [data-dg-agent][data-dg-scheme="dark"]  { color-scheme: dark; }
+  /* Dark mode token overrides — explicit values, no light-dark() polyfill needed */
+  [data-dg-agent][data-dg-scheme="dark"] {
+    color-scheme: dark;
+    --color-background:           #18181c;
+    --color-foreground:           #ffffff;
+    --color-card:                 #222228;
+    --color-card-foreground:      #ffffff;
+    --color-popover:              #222228;
+    --color-popover-foreground:   #ffffff;
+    --color-muted:                #222228;
+    --color-muted-foreground:     #8b8b9a;
+    --color-accent:               #1a1a1f;
+    --color-accent-foreground:    #ffffff;
+    --color-input:                #1e1e24;
+    --color-border:               rgba(255,255,255,0.08);
+    --color-secondary:            #222228;
+    --color-secondary-foreground: #ffffff;
+    --color-destructive:          #ef4444;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    [data-dg-agent]:not([data-dg-scheme="light"]) {
+      color-scheme: dark;
+      --color-background:           #18181c;
+      --color-foreground:           #ffffff;
+      --color-card:                 #222228;
+      --color-card-foreground:      #ffffff;
+      --color-popover:              #222228;
+      --color-popover-foreground:   #ffffff;
+      --color-muted:                #222228;
+      --color-muted-foreground:     #8b8b9a;
+      --color-accent:               #1a1a1f;
+      --color-accent-foreground:    #ffffff;
+      --color-input:                #1e1e24;
+      --color-border:               rgba(255,255,255,0.08);
+      --color-secondary:            #222228;
+      --color-secondary-foreground: #ffffff;
+      --color-destructive:          #ef4444;
+    }
+  }
+
+  [data-dg-agent][data-dg-scheme="light"] {
+    color-scheme: light;
+  }
 
   /* Extended tokens without direct shadcn equivalents */
   :root {
     --primary-hover: color-mix(in srgb, var(--color-primary) 85%, #000);
     --primary-active: color-mix(in srgb, var(--color-primary) 70%, #000);
-    --accent-active: light-dark(#f3f4f6, #222228);
+    --accent-active: #f3f4f6;
     --warning: #f59e0b;
     --msg-user-bg: color-mix(in srgb, var(--color-primary) 12%, transparent);
     --msg-user-border: color-mix(in srgb, var(--color-primary) 30%, transparent);
@@ -57,6 +109,11 @@
     /* Backward-compat aliases — BarVisualizer + LiveWaveform read these via getComputedStyle */
     --dg-va-primary: var(--color-primary);
     --dg-va-border: var(--color-border);
+  }
+
+  [data-dg-agent][data-dg-scheme="dark"] { --accent-active: #222228; }
+  @media (prefers-color-scheme: dark) {
+    [data-dg-agent]:not([data-dg-scheme="light"]) { --accent-active: #222228; }
   }
 }
 
@@ -78,10 +135,169 @@
 
 /* ─── Components: rules that can't be expressed as utility classes ────────── */
 @layer components {
-  /* VoiceButton listening glow — color-mix() in box-shadow can't be a Tailwind utility */
+  /* VoiceButton listening glow */
   [data-agent-voice-button][data-voice-state="listening"] {
     box-shadow:
       0 0 0 1px var(--color-primary),
       0 0 12px color-mix(in srgb, var(--color-primary) 20%, transparent);
   }
+
+  /* ── Widget structural classes ───────────────────────────────────────────
+   * Used by @deepgram/agent-widget and documented for users building
+   * their own widget layouts with @deepgram/ui components.
+   * ─────────────────────────────────────────────────────────────────────── */
+
+  /* Sidebar panel — slides in from right (or left).
+   * position:absolute (not fixed) so it stays a layout child of [data-dg-agent],
+   * which is itself position:fixed inset:0 — same visual result, correct inheritance. */
+  .dg-panel {
+    position: absolute;
+    top: 0; right: 0; bottom: 0;
+    width: var(--dg-va-panel-w, min(440px, 100vw));
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    pointer-events: auto;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    border-left: 1px solid var(--color-border);
+    transform: translateX(100%);
+    transition: transform 0.25s ease;
+  }
+  .dg-panel-left {
+    right: auto; left: 0;
+    border-left: none;
+    border-right: 1px solid var(--color-border);
+    transform: translateX(-100%);
+  }
+  .dg-panel-open { transform: translateX(0); }
+
+  /* Inline / embedded container — fills parent, flex column */
+  .dg-panel-inline {
+    position: relative;
+    width: 100%;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    border-radius: var(--radius);
+  }
+
+  /* Embedded host container */
+  .dg-embedded {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .dg-embedded .dg-panel-inline {
+    border-radius: 0;
+    flex: 1;
+    min-height: 0;
+  }
+
+  /* Overlay backdrop — absolute inside the fixed [data-dg-agent] root */
+  .dg-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 9998;
+    background-color: light-dark(rgba(0,0,0,0.25), rgba(0,0,0,0.5));
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s;
+  }
+  .dg-overlay-open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  /* Button layout — standalone talk/stop button */
+  .dg-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    line-height: 1;
+    border-radius: var(--dg-va-btn-radius, 10px);
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+    transition: background-color 0.15s, border-color 0.15s, color 0.15s;
+    background-color: var(--color-card);
+    color: var(--color-foreground);
+  }
+  .dg-btn:hover {
+    background-color: var(--color-accent);
+    border-color: var(--color-primary);
+  }
+  .dg-btn:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+  .dg-btn--active {
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
+    border-color: var(--color-primary);
+  }
+  .dg-btn--active:hover { background-color: var(--primary-hover); border-color: var(--primary-hover); }
+  .dg-btn--connecting { opacity: 0.6; cursor: wait; }
+  .dg-btn__pulse {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 9999px;
+    background-color: var(--color-primary-foreground);
+    animation: dg-va-pulse 1.5s ease-in-out infinite;
+  }
+
+  /* Orb widget container */
+  .dg-orb-view {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    padding: 16px;
+  }
+  .dg-orb-view__status {
+    font-size: 0.875rem;
+    color: var(--color-muted-foreground);
+    min-height: 1.2em;
+  }
+
+  /* Floating action button — absolute inside fixed [data-dg-agent] root */
+  .dg-fab {
+    position: absolute;
+    z-index: 9998;
+    pointer-events: auto;
+    width: var(--dg-va-fab-size, 56px);
+    height: var(--dg-va-fab-size, 56px);
+    border-radius: 9999px;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-primary);
+    color: var(--color-primary-foreground);
+    box-shadow: 0 4px 16px color-mix(in srgb, var(--color-primary) 40%, transparent);
+    transition: background-color 0.15s, transform 0.15s, box-shadow 0.15s;
+  }
+  .dg-fab:hover {
+    background-color: var(--primary-hover);
+    transform: scale(1.05);
+    box-shadow: 0 6px 24px color-mix(in srgb, var(--color-primary) 55%, transparent);
+  }
+  .dg-fab:active { background-color: var(--primary-active); }
+  .dg-fab:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; }
+
+  /* FAB placement helpers */
+  .dg-fab-bottom-right { bottom: 24px; right: 24px; }
+  .dg-fab-bottom-left  { bottom: 24px; left: 24px; }
+  .dg-fab-top-right    { top: 24px; right: 24px; }
+  .dg-fab-top-left     { top: 24px; left: 24px; }
+  .dg-fab-bottom       { bottom: 24px; left: 50%; transform: translateX(-50%); }
+  .dg-fab-bottom:hover { transform: translateX(-50%) scale(1.05); }
+  .dg-fab-top          { top: 24px; left: 50%; transform: translateX(-50%); }
+  .dg-fab-top:hover    { transform: translateX(-50%) scale(1.05); }
 }

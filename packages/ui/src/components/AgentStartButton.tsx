@@ -5,10 +5,10 @@ import { cn } from "../lib/utils.js";
 
 export interface AgentStartButtonProps {
   className?: string;
-  startLabel?: unknown;
-  connectingLabel?: unknown;
-  stopLabel?: unknown;
-  reconnectingLabel?: unknown;
+  startLabel?: React.ReactNode;
+  connectingLabel?: React.ReactNode;
+  stopLabel?: React.ReactNode;
+  reconnectingLabel?: React.ReactNode;
   onClick?: () => void;
 }
 
@@ -58,7 +58,7 @@ export function AgentStartButton({
         className
       )}
     >
-      {label as React.ReactNode}
+      {label}
     </Button>
   );
 }

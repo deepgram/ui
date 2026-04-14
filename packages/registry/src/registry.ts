@@ -87,7 +87,7 @@ export const registry: RegistryItem[] = [
     type: "registry:ui",
     description: "Scrollable conversation transcript with auto-scroll",
     dependencies: ["@deepgram/react"],
-    registryDependencies: ["utils", "scroll-area"],
+    registryDependencies: ["utils"],
     files: ["components/AgentConversation.tsx"],
   },
   {

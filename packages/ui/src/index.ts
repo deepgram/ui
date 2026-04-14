@@ -3,13 +3,13 @@
 import "./styles.css";
 
 export { AgentStatus }           from "./components/AgentStatus.js";
-export { AgentConversation }     from "./components/AgentConversation.js";
+export { AgentConversation, AgentMessage } from "./components/AgentConversation.js";
 export { AgentTextInput }        from "./components/AgentTextInput.js";
 export { AgentMicrophoneButton } from "./components/AgentMicrophoneButton.js";
 export { AgentSpeakerButton }    from "./components/AgentSpeakerButton.js";
 export { AgentStartButton }      from "./components/AgentStartButton.js";
 export type { AgentStatusProps }           from "./components/AgentStatus.js";
-export type { AgentConversationProps }     from "./components/AgentConversation.js";
+export type { AgentConversationProps, AgentMessageProps } from "./components/AgentConversation.js";
 export type { AgentTextInputProps }        from "./components/AgentTextInput.js";
 export type { AgentMicrophoneButtonProps } from "./components/AgentMicrophoneButton.js";
 export type { AgentSpeakerButtonProps }    from "./components/AgentSpeakerButton.js";
