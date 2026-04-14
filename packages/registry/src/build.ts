@@ -7,7 +7,8 @@
  * Output structure:
  *   dist/r/index.json        — registry index (all items, no file content)
  *   dist/r/<name>.json       — individual registry items with full file content
- *   dist/llms.txt            — plain-text component list for AI discoverability
+ *
+ * Note: llms.txt lives at ui.deepgram.com, not on the CDN. See apps/web/public/.
  *
  * Usage:
  *   bun run src/build.ts
@@ -154,41 +155,11 @@ function buildIndex(): RegistryIndex {
   };
 }
 
-// ── llms.txt builder ────────────────────────────────────────────────────────
-
-function buildLlmsTxt(): string {
-  const lines = [
-    "# Deepgram UI Component Registry",
-    "",
-    "A collection of voice agent UI components built on shadcn/ui and Tailwind v4.",
-    "Install any component with: npx shadcn add https://cdn.deepgram.com/ui/r/<name>.json",
-    "",
-    "## Components",
-    "",
-  ];
-
-  for (const item of registry) {
-    lines.push(`### ${item.name}`);
-    lines.push(`${item.description}`);
-    lines.push(`Registry URL: https://cdn.deepgram.com/ui/r/${item.name}.json`);
-    if (item.dependencies?.length) {
-      lines.push(`npm dependencies: ${item.dependencies.join(", ")}`);
-    }
-    if (item.registryDependencies?.length) {
-      lines.push(`Registry dependencies: ${item.registryDependencies.join(", ")}`);
-    }
-    lines.push("");
-  }
-
-  return lines.join("\n");
-}
-
 // ── Main ────────────────────────────────────────────────────────────────────
 
 function main() {
   // Ensure output directory exists
   mkdirSync(OUT_DIR, { recursive: true });
-  mkdirSync(resolve(OUT_DIR, ".."), { recursive: true });
 
   let built = 0;
   let failed = 0;
@@ -212,13 +183,9 @@ function main() {
   writeFileSync(join(OUT_DIR, "index.json"), JSON.stringify(index, null, 2) + "\n");
   console.log(`  ✓ index.json`);
 
-  // Build llms.txt
-  const llmsTxt = buildLlmsTxt();
-  writeFileSync(resolve(OUT_DIR, "../llms.txt"), llmsTxt);
-  console.log(`  ✓ llms.txt`);
-
   console.log(`\nRegistry built: ${built} components, ${failed} failed`);
   console.log(`Output: packages/registry/dist/r/`);
+  console.log(`Note: llms.txt lives at ui.deepgram.com — see apps/web/public/`);
 
   if (failed > 0) process.exit(1);
 }
