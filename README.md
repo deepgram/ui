@@ -8,20 +8,6 @@ React UI component library for [Deepgram Voice Agent](https://developers.deepgra
 
 ## Install
 
-### Via shadcn registry (recommended)
-
-Pick the components you need:
-
-```bash
-npx shadcn add https://cdn.deepgram.com/ui/r/orb.json
-npx shadcn add https://cdn.deepgram.com/ui/r/agent-conversation.json
-npx shadcn add https://cdn.deepgram.com/ui/r/voice-button.json
-```
-
-### Via npm
-
-Install the full library:
-
 ```bash
 npm install @deepgram/ui @deepgram/react @deepgram/agents
 ```
@@ -86,24 +72,6 @@ function App() {
 | [`BarVisualizer`](packages/ui/) | Frequency bar visualization |
 | [`Response`](packages/ui/) | Lightweight markdown renderer for AI responses with Tailwind Typography |
 
-## Distribution Models
-
-### shadcn Registry
-
-Individual components are published to `cdn.deepgram.com/ui/r/` as shadcn-compatible JSON. This lets you add only the components you need directly into your project source, with full control over styling and behavior. Components are copied into your codebase — no runtime dependency on `@deepgram/ui`.
-
-```bash
-npx shadcn add https://cdn.deepgram.com/ui/r/orb.json
-```
-
-### npm Package
-
-The full library is published to npm as `@deepgram/ui`. Import components and the compiled Tailwind CSS stylesheet. Theming is done via CSS custom properties on `[data-dg-agent]`. This is the right choice when you want the complete component set with automatic updates.
-
-```bash
-npm install @deepgram/ui @deepgram/react @deepgram/agents
-```
-
 ## Packages
 
 | Directory | Package | Description |
@@ -117,26 +85,18 @@ npm install @deepgram/ui @deepgram/react @deepgram/agents
 - [Documentation](https://developers.deepgram.com/docs/voice-agent)
 - [API Reference](https://developers.deepgram.com/reference)
 - [Landing Page](https://ui.deepgram.com)
-- [Component Registry](https://cdn.deepgram.com/ui/r/index.json)
 
 ## Development
 
 **Prerequisites:** [Bun](https://bun.sh/) 1.3+
-
-This repo uses `file:` pointers to sibling checkouts of `deepgram/agent` and `deepgram/react`. Clone all three as siblings:
-
-```
-~/Projects/deepgram/
-  ui/              ← this repo
-  agent/           ← deepgram/agent
-  react/           ← deepgram/react
-```
 
 ```bash
 git clone git@github.com:deepgram/ui.git
 cd ui
 bun install
 ```
+
+`@deepgram/agents` and `@deepgram/react` install from npm. No sibling checkouts required.
 
 ```bash
 bun run build              # Build @deepgram/ui
