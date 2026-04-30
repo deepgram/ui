@@ -64,7 +64,7 @@
     "terser": "5.46.2",
     "typescript": "6.0.2",
     "vite": "8.0.10",
-    "vite-plugin-css-injected-by-js": "4.0.1",
+    "vite-plugin-css-injected-by-js": "5.0.0",
     "vite-plugin-dts": "4.5.4"
   },
   "license": "MIT"
