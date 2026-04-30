@@ -11,6 +11,20 @@ const { AgentTextInput } = await import("../components/AgentTextInput.js");
 const { AgentStartButton } = await import("../components/AgentStartButton.js");
 const { AgentMicrophoneButton } = await import("../components/AgentMicrophoneButton.js");
 const { AgentSpeakerButton } = await import("../components/AgentSpeakerButton.js");
+const { useAgentConversation } = await import("@deepgram/react");
+
+function ConversationMessages() {
+  const { conversation } = useAgentConversation();
+  return (
+    <>
+      {conversation.map((entry) => (
+        <div key={entry.id} data-role={entry.role}>
+          {entry.content}
+        </div>
+      ))}
+    </>
+  );
+}
 
 function renderInProvider(ui: React.ReactElement, props = {}) {
   return render(<TestProvider {...props}>{ui}</TestProvider>);
@@ -47,7 +61,11 @@ describe("AgentConversation", () => {
   });
 
   it("renders messages with data-role after event", () => {
-    const { container } = renderInProvider(<AgentConversation />);
+    const { container } = renderInProvider(
+      <AgentConversation>
+        <ConversationMessages />
+      </AgentConversation>,
+    );
 
     act(() => {
       lastSession.emit("conversation-text", {

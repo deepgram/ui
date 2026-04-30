@@ -17,8 +17,6 @@
     "build:web": "bun run --filter 'web' build"
   },
   "overrides": {
-    "brace-expansion": "5.0.5",
-    "@deepgram/agent": "file:../agent/packages/sdk",
-    "@deepgram/react": "file:../react/packages/react"
+    "brace-expansion": "5.0.5"
   }
 }

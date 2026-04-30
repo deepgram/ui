@@ -55,8 +55,8 @@ export function BarVisualizer({
       // The session doesn't directly expose these — we use a workaround
       // by reading frequency data at the current instant
       if (source === "input") {
-        // @ts-expect-error — accessing internal for visualization
-        data = session?.["micRef"]?.current?.getInputByteFrequencyData?.();
+        data = (session as unknown as { micRef?: { current?: { getInputByteFrequencyData?: () => Uint8Array } } })
+          ?.micRef?.current?.getInputByteFrequencyData?.();
       }
     } catch {}
 

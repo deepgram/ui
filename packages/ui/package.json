@@ -14,7 +14,18 @@
     },
     "./styles.css": "./dist/styles.css"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/deepgram/ui.git",
+    "directory": "packages/ui"
+  },
+  "homepage": "https://github.com/deepgram/ui/tree/main/packages/ui#readme",
+  "bugs": {
+    "url": "https://github.com/deepgram/ui/issues"
+  },
   "scripts": {
     "build": "tsc --noEmit && vite build",
     "typecheck": "tsc --noEmit",
@@ -23,15 +34,15 @@
     "test:watch": "bun test --watch"
   },
   "dependencies": {
-    "@deepgram/agent": "file:../../../agent/packages/sdk",
-    "@deepgram/react": "file:../../../react/packages/react",
+    "@deepgram/agents": "^0.1.1",
+    "@deepgram/react": "^0.1.0",
     "@radix-ui/react-scroll-area": "1.2.10",
     "@radix-ui/react-select": "2.2.6",
     "@radix-ui/react-slot": "1.2.4",
     "@radix-ui/react-toggle": "1.1.10",
     "class-variance-authority": "0.7.1",
     "clsx": "2.1.1",
-    "lucide-react": "1.8.0",
+    "lucide-react": "1.11.0",
     "tailwind-merge": "3.5.0"
   },
   "peerDependencies": {
@@ -40,19 +51,19 @@
   },
   "devDependencies": {
     "@tailwindcss/typography": "0.5.19",
-    "@tailwindcss/vite": "4.2.2",
+    "@tailwindcss/vite": "4.2.4",
     "@testing-library/react": "16.3.2",
     "@types/react": "19.2.14",
     "@types/react-dom": "19.2.3",
     "@vitejs/plugin-react": "6.0.1",
     "eventemitter3": "5.0.4",
-    "happy-dom": "20.8.9",
-    "react": "19.2.4",
-    "react-dom": "19.2.4",
-    "tailwindcss": "4.2.2",
-    "terser": "5.46.1",
-    "typescript": "5.9.3",
-    "vite": "8.0.5",
+    "happy-dom": "20.9.0",
+    "react": "19.2.5",
+    "react-dom": "19.2.5",
+    "tailwindcss": "4.2.4",
+    "terser": "5.46.2",
+    "typescript": "6.0.2",
+    "vite": "8.0.10",
     "vite-plugin-css-injected-by-js": "4.0.1",
     "vite-plugin-dts": "4.5.4"
   },
