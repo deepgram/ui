@@ -59,7 +59,7 @@ export function resetMocks() {
 }
 
 // Install module-level mock
-mock.module("@deepgram/agent", () => ({
+mock.module("@deepgram/agents", () => ({
   AgentSession: class extends MockAgentSession {
     constructor(...args: unknown[]) {
       super();

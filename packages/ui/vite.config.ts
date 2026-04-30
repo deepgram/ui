@@ -18,7 +18,7 @@ export default defineConfig({
         "react",
         "react/jsx-runtime",
         "react-dom",
-        "@deepgram/agent",
+        "@deepgram/agents",
         "@deepgram/react",
       ],
     },
@@ -30,7 +30,7 @@ export default defineConfig({
     tailwindcss(),
     react(),
     // Embed compiled CSS as a self-executing JS string so any bundler
-    // (including @deepgram/agent-widget) gets the styles automatically
+    // (including @deepgram/agents-widget) gets the styles automatically
     // when it imports @deepgram/ui/dist/index.js.
     cssInjected(),
     dts({ rollupTypes: true }),

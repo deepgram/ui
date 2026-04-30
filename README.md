@@ -23,7 +23,7 @@ npx shadcn add https://cdn.deepgram.com/ui/r/voice-button.json
 Install the full library:
 
 ```bash
-npm install @deepgram/ui @deepgram/react @deepgram/agent
+npm install @deepgram/ui @deepgram/react @deepgram/agents
 ```
 
 ## Quick Start
@@ -101,7 +101,7 @@ npx shadcn add https://cdn.deepgram.com/ui/r/orb.json
 The full library is published to npm as `@deepgram/ui`. Import components and the compiled Tailwind CSS stylesheet. Theming is done via CSS custom properties on `[data-dg-agent]`. This is the right choice when you want the complete component set with automatic updates.
 
 ```bash
-npm install @deepgram/ui @deepgram/react @deepgram/agent
+npm install @deepgram/ui @deepgram/react @deepgram/agents
 ```
 
 ## Packages

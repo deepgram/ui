@@ -9,7 +9,7 @@ This repo owns:
 - local examples in `examples/`
 
 Sibling dependencies:
-- `../agent` → `@deepgram/agent`
+- `../agent` → `@deepgram/agents`
 - `../react` → `@deepgram/react`
 
 ## Commands

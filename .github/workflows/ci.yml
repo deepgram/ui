@@ -10,28 +10,29 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v6
         with:
-          repository: deepgram/agent
-          path: ../agent
-      - uses: actions/checkout@v4
-        with:
-          repository: deepgram/react
-          path: ../react
+          node-version: 22
+
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: "1.3.10"
-      - name: Build dependencies
-        run: |
-          cd ../agent && bun install && bun run --filter '@deepgram/agent' build
-          cd ../react && bun install && bun run build
+
       - run: bun install
+
       - name: Typecheck
         run: bun run typecheck
+
+      - name: Test
+        run: bun run test
+
       - name: Build
         run: bun run build
+
       - name: Build registry
         run: bun run build:registry
+
       - name: Build web
         run: bun run build:web
