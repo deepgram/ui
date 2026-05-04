@@ -50,3 +50,42 @@ jobs:
         working-directory: packages/ui
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_DEEPGRAM_TOKEN }}
+
+  publish-cdn-registry:
+    needs: release-please
+    if: needs.release-please.outputs.release_created == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.3.10"
+
+      - run: bun install
+
+      - run: bun run build:registry
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ secrets.CDN_AWS_ROLE_DEPLOYER }}
+          role-session-name: gha-cdn-registry-${{ github.run_id }}
+          aws-region: ${{ secrets.CDN_AWS_REGION }}
+
+      - name: Upload shadcn registry to CDN
+        env:
+          BUCKET: ${{ secrets.CDN_S3_BUCKET }}
+        run: |
+          aws s3 sync ./packages/registry/dist/r/ "s3://${BUCKET}/ui/r/" --delete
+
+      - name: Invalidate CloudFront /ui/r/*
+        env:
+          DISTRIBUTION_ID: ${{ secrets.CDN_CLOUDFRONT_DISTRIBUTION_ID }}
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id "${DISTRIBUTION_ID}" \
+            --paths '/ui/r/*'
