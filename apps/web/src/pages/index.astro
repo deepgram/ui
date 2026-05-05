@@ -193,20 +193,22 @@ const components = [
           <p class="text-dg-muted text-base max-w-lg mx-auto">Components are copied into your project — not imported from a black box. Customize freely. No breaking updates.</p>
         </div>
 
-        <div class="grid sm:grid-cols-3 gap-4">
+        <div class="grid sm:grid-cols-3 gap-4 items-stretch">
           {[
             {
               n: '01',
               title: 'Pick a component',
               desc: 'Browse the registry. Each component is a self-contained .tsx file with Tailwind classes and Radix primitives.',
-              code: 'npx shadcn add\n  https://cdn.deepgram.com/ui/r/orb.json',
+              code: '$ npx shadcn add\n  …/ui/r/orb.json',
+              copy: 'npx shadcn add https://cdn.deepgram.com/ui/r/orb.json',
               color: 'green',
             },
             {
               n: '02',
               title: 'It lands in your project',
               desc: 'The file is copied to components/ui/. npm deps are installed automatically. You own the source.',
-              code: '✓ components/ui/Orb.tsx\n✓ @deepgram/react installed',
+              code: '✓ components/ui/Orb.tsx\n✓ @deepgram/react',
+              copy: '✓ components/ui/Orb.tsx\n✓ @deepgram/react installed',
               color: 'blue',
             },
             {
@@ -214,20 +216,21 @@ const components = [
               title: 'Use it',
               desc: 'Import, wrap in AgentProvider, done. All components consume @deepgram/react hooks under the hood.',
               code: 'import { Orb } from\n  "@/components/ui/Orb"',
+              copy: 'import { Orb } from "@/components/ui/Orb"',
               color: 'subtle',
             },
-          ].map(({ n, title, desc, code, color }) => (
-            <div class:list={[`gb-${color}`, 'rounded-2xl']}>
+          ].map(({ n, title, desc, code, copy, color }) => (
+            <div class:list={[`gb-${color}`, 'rounded-2xl h-full']}>
               <div class="rounded-2xl h-full p-6 flex flex-col" style="background: linear-gradient(160deg, #1a1a1f 0%, #161619 100%);">
                 <div class="font-mono text-xs text-dg-green/60 mb-4">{n}</div>
                 <h3 class="font-bold text-base mb-2 text-dg-text">{title}</h3>
                 <p class="text-sm text-dg-muted leading-relaxed flex-1 mb-5">{desc}</p>
-                <div class="relative px-3 py-2.5 pr-9 rounded-lg font-mono text-xs leading-6 text-dg-fog"
-                     style="background:#0b0b0c; border:1px solid #2c2c33; white-space: pre-wrap; overflow-wrap: anywhere;">
+                <div class="relative rounded-lg font-mono text-xs leading-6 text-dg-fog whitespace-pre"
+                     style="background:#0b0b0c; border:1px solid #2c2c33; padding:10px 36px 10px 12px;">
                   {code}
                   <button
                     type="button"
-                    data-copy={code}
+                    data-copy={copy ?? code}
                     onclick="copyCmd(this.dataset.copy)"
                     aria-label="Copy"
                     class="absolute top-1.5 right-1.5 p-1.5 rounded text-dg-pebble hover:text-dg-green hover:bg-white/5 transition-colors"
