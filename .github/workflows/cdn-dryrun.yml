@@ -1,0 +1,53 @@
+name: CDN Dry-Run
+
+on:
+  pull_request:
+    paths:
+      - "packages/ui/**"
+      - "packages/registry/**"
+      - ".github/workflows/cdn-dryrun.yml"
+      - ".github/workflows/npm-publish.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  id-token: write
+
+jobs:
+  dryrun-registry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: "1.3.10"
+
+      - run: bun install
+
+      - run: bun run build:registry
+
+      - name: Configure AWS credentials (read-only)
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          role-to-assume: ${{ secrets.CDN_AWS_ROLE_READER }}
+          role-session-name: gha-cdn-dryrun-registry-${{ github.run_id }}
+          aws-region: ${{ secrets.CDN_AWS_REGION }}
+
+      - name: List existing registry objects at CDN
+        env:
+          BUCKET: ${{ secrets.CDN_S3_BUCKET }}
+        run: |
+          echo "::group::existing s3://${BUCKET}/ui/r/"
+          aws s3 ls "s3://${BUCKET}/ui/r/" --recursive --human-readable --summarize || echo "(no registry at CDN yet)"
+          echo "::endgroup::"
+
+      - name: Dry-run registry sync
+        env:
+          BUCKET: ${{ secrets.CDN_S3_BUCKET }}
+        run: |
+          ITEM_COUNT=$(ls -1 ./packages/registry/dist/r/*.json 2>/dev/null | wc -l | tr -d ' ')
+          echo "Built ${ITEM_COUNT} registry JSON files"
+          echo "::group::dryrun → s3://${BUCKET}/ui/r/"
+          aws s3 sync ./packages/registry/dist/r/ "s3://${BUCKET}/ui/r/" --dryrun
+          echo "::endgroup::"
