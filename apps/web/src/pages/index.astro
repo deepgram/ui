@@ -222,8 +222,21 @@ const components = [
                 <div class="font-mono text-xs text-dg-green/60 mb-4">{n}</div>
                 <h3 class="font-bold text-base mb-2 text-dg-text">{title}</h3>
                 <p class="text-sm text-dg-muted leading-relaxed flex-1 mb-5">{desc}</p>
-                <div class="px-3 py-2.5 rounded-lg font-mono text-xs leading-6 whitespace-pre text-dg-fog"
-                     style="background:#0b0b0c; border:1px solid #2c2c33;">{code}</div>
+                <div class="relative px-3 py-2.5 pr-9 rounded-lg font-mono text-xs leading-6 text-dg-fog"
+                     style="background:#0b0b0c; border:1px solid #2c2c33; white-space: pre-wrap; overflow-wrap: anywhere;">
+                  {code}
+                  <button
+                    type="button"
+                    data-copy={code}
+                    onclick="copyCmd(this.dataset.copy)"
+                    aria-label="Copy"
+                    class="absolute top-1.5 right-1.5 p-1.5 rounded text-dg-pebble hover:text-dg-green hover:bg-white/5 transition-colors"
+                  >
+                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                  </button>
+                </div>
               </div>
             </div>
           ))}
