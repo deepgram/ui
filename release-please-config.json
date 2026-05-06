@@ -16,8 +16,7 @@
   "packages": {
     "packages/ui": {
       "package-name": "@deepgram/ui",
-      "changelog-path": "CHANGELOG.md",
-      "release-as": "0.1.0"
+      "changelog-path": "CHANGELOG.md"
     }
   }
 }
