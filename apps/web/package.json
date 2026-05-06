@@ -13,8 +13,8 @@
   },
   "dependencies": {
     "@astrojs/sitemap": "3.7.2",
-    "@tailwindcss/vite": "4.2.2",
-    "astro": "6.1.6",
-    "tailwindcss": "4.2.2"
+    "@tailwindcss/vite": "4.2.4",
+    "astro": "6.2.2",
+    "tailwindcss": "4.2.4"
   }
 }
