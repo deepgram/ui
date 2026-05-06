@@ -24,7 +24,7 @@
     },
     "packages/ui": {
       "name": "@deepgram/ui",
-      "version": "0.0.0",
+      "version": "0.1.0",
       "dependencies": {
         "@deepgram/agents": "^0.1.1",
         "@deepgram/react": "^0.1.0",
@@ -36,6 +36,7 @@
         "clsx": "2.1.1",
         "lucide-react": "1.11.0",
         "tailwind-merge": "3.5.0",
+        "tailwindcss-scoped-preflight": "^4.0.6",
       },
       "devDependencies": {
         "@tailwindcss/typography": "0.5.19",
@@ -1030,6 +1031,8 @@
     "tailwind-merge": ["tailwind-merge@3.5.0", "", {}, "sha512-I8K9wewnVDkL1NTGoqWmVEIlUcB9gFriAEkXkfCjX5ib8ezGxtR3xD7iZIxrfArjEsH7F1CHD4RFUtxefdqV/A=="],
 
     "tailwindcss": ["tailwindcss@4.2.4", "", {}, "sha512-HhKppgO81FQof5m6TEnuBWCZGgfRAWbaeOaGT00KOy/Pf/j6oUihdvBpA7ltCeAvZpFhW3j0PTclkxsd4IXYDA=="],
+
+    "tailwindcss-scoped-preflight": ["tailwindcss-scoped-preflight@4.0.6", "", { "peerDependencies": { "postcss": "^8", "tailwindcss": "^4" } }, "sha512-pG2HSG+S6DAF8+W07KOC/Qf+jnE9YgWytdUWifIpZ7g6uUUpOenhAuck9DwxKLTY2do/3htTHqBgHDVIe8mMqQ=="],
 
     "tapable": ["tapable@2.3.3", "", {}, "sha512-uxc/zpqFg6x7C8vOE7lh6Lbda8eEL9zmVm/PLeTPBRhh1xCgdWaQ+J1CUieGpIfm2HdtsUpRv+HshiasBMcc6A=="],
 

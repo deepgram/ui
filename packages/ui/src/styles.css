@@ -1,5 +1,26 @@
-@import "tailwindcss";
+/* Tailwind v4 imports, granular so we can scope preflight.
+ *
+ * The full `@import "tailwindcss";` shortcut pulls preflight in at the global
+ * scope, which uses universal selectors (`*, ::before, ::after`, `html`, `body`)
+ * that bleed onto any host page that loads the bundle. The
+ * `tailwindcss-scoped-preflight` plugin rewrites every preflight rule with a
+ * `[data-dg-agent]` ancestor, so the reset only applies to widget descendants.
+ *
+ * Theme tokens and utilities stay global so embedders building their own
+ * widget layouts with @deepgram/ui components continue to get class-based
+ * styling via Tailwind utilities.
+ *
+ * Do NOT add `@import "tailwindcss";` back. Granular imports + the plugin are
+ * the contract that keeps the host page untouched.
+ */
+@layer theme, base, components, utilities;
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
 @plugin "@tailwindcss/typography";
+@plugin "tailwindcss-scoped-preflight" {
+  isolation-strategy: inside;
+  selector: [data-dg-agent];
+}
 
 /* Explicitly tell Tailwind v4 to scan component source files for class usage.
    Without this, auto-detection may miss files in sibling repos / outside the project root. */
@@ -97,8 +118,9 @@
     color-scheme: light;
   }
 
-  /* Extended tokens without direct shadcn equivalents */
-  :root {
+  /* Extended tokens without direct shadcn equivalents.
+   * Scoped to [data-dg-agent] (not :root) so they do not leak to the host. */
+  [data-dg-agent] {
     --primary-hover: color-mix(in srgb, var(--color-primary) 85%, #000);
     --primary-active: color-mix(in srgb, var(--color-primary) 70%, #000);
     --accent-active: #f3f4f6;
