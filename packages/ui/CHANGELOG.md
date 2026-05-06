@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.1](https://github.com/deepgram/ui/compare/ui-v0.1.0...ui-v0.1.1) (2026-05-06)
+
+
+### Bug Fixes
+
+* **ui:** scope tailwind preflight to [data-dg-agent] via plugin ([#27](https://github.com/deepgram/ui/issues/27)) ([8742c18](https://github.com/deepgram/ui/commit/8742c189c1204647e973827de57f16678aea29cd))
+
 ## 0.1.0 (2026-04-30)
 
 
