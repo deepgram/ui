@@ -12,12 +12,21 @@
  *    (`*, ::before, ::after`, `html`, `body`) only applies inside widget
  *    descendants and never bleeds onto the host page.
  *
+ * Imports are intentionally granular (`tailwindcss/theme.css` and
+ * `tailwindcss/utilities.css`) so preflight is NOT pulled in directly.
+ * Preflight comes only from the scoped-preflight plugin, ensuring every
+ * preflight rule that ships in the bundle has a `[data-dg-agent]` ancestor
+ * selector. The full `@import "tailwindcss"` shortcut would inject the raw
+ * upstream preflight at root scope alongside the plugin's scoped copy,
+ * leaking the universal selector reset onto the host page.
+ *
  * Together, the bundle ships zero unscoped global selectors AND zero
  * unprefixed utility class names. Any consumer of this package writing
  * components must use the `dg:` prefix on Tailwind classes.
  */
 @layer theme, base, components, utilities;
-@import "tailwindcss" prefix(dg);
+@import "tailwindcss/theme.css" layer(theme) prefix(dg);
+@import "tailwindcss/utilities.css" layer(utilities) prefix(dg);
 @plugin "@tailwindcss/typography";
 @plugin "tailwindcss-scoped-preflight" {
   isolation-strategy: inside;
