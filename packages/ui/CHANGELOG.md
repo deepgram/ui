@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/deepgram/ui/compare/ui-v0.1.2...ui-v0.1.3) (2026-05-07)
+
+
+### Bug Fixes
+
+* **ui:** keep tailwind imports granular so preflight stays scoped ([#34](https://github.com/deepgram/ui/issues/34)) ([b724a91](https://github.com/deepgram/ui/commit/b724a911dff9521877bc485621e98ae1b2c6631d))
+
 ## [0.1.2](https://github.com/deepgram/ui/compare/ui-v0.1.1...ui-v0.1.2) (2026-05-07)
 
 
