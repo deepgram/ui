@@ -53,8 +53,8 @@ export function AgentStartButton({
       aria-label={typeof label === "string" ? label : "Start agent"}
       onClick={handleClick}
       className={cn(
-        "w-full font-semibold",
-        !isGhost && "hover:bg-[var(--primary-hover)] active:bg-[var(--primary-active)]",
+        "dg:w-full dg:font-semibold",
+        !isGhost && "dg:hover:bg-[var(--primary-hover)] dg:active:bg-[var(--primary-active)]",
         className
       )}
     >

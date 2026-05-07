@@ -5,22 +5,22 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../lib/utils.js";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
+  "dg:inline-flex dg:items-center dg:justify-center dg:gap-2 dg:whitespace-nowrap dg:rounded-md dg:text-sm dg:font-medium dg:transition-colors dg:focus-visible:outline-none dg:focus-visible:ring-1 dg:focus-visible:ring-ring dg:disabled:pointer-events-none dg:disabled:opacity-50 dg:[&_svg]:pointer-events-none dg:[&_svg]:size-4 dg:[&_svg]:shrink-0",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground shadow hover:bg-primary/90",
-        destructive: "bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/90",
-        outline: "border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground",
-        secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
-        ghost: "hover:bg-accent hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 hover:underline",
+        default: "dg:bg-primary dg:text-primary-foreground dg:shadow dg:hover:bg-primary/90",
+        destructive: "dg:bg-destructive dg:text-destructive-foreground dg:shadow-sm dg:hover:bg-destructive/90",
+        outline: "dg:border dg:border-input dg:bg-background dg:shadow-sm dg:hover:bg-accent dg:hover:text-accent-foreground",
+        secondary: "dg:bg-secondary dg:text-secondary-foreground dg:shadow-sm dg:hover:bg-secondary/80",
+        ghost: "dg:hover:bg-accent dg:hover:text-accent-foreground",
+        link: "dg:text-primary dg:underline-offset-4 dg:hover:underline",
       },
       size: {
-        default: "h-9 px-4 py-2",
-        sm: "h-8 rounded-md px-3 text-xs",
-        lg: "h-10 rounded-md px-8",
-        icon: "h-9 w-9",
+        default: "dg:h-9 dg:px-4 dg:py-2",
+        sm: "dg:h-8 dg:rounded-md dg:px-3 dg:text-xs",
+        lg: "dg:h-10 dg:rounded-md dg:px-8",
+        icon: "dg:h-9 dg:w-9",
       },
     },
     defaultVariants: {

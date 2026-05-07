@@ -30,11 +30,11 @@ const MicOffIcon = () => (
 );
 
 const toggleClasses = cn(
-  "h-10 w-10 shrink-0 rounded-[calc(var(--radius)-6px)] border border-border bg-card text-foreground",
-  "hover:bg-accent hover:text-accent-foreground",
-  "data-[state=on]:bg-primary data-[state=on]:text-primary-foreground data-[state=on]:border-primary",
-  "data-[state=on]:hover:bg-[var(--primary-hover)]",
-  "data-[state=off]:text-muted-foreground",
+  "dg:h-10 dg:w-10 dg:shrink-0 dg:rounded-[calc(var(--radius)-6px)] dg:border dg:border-border dg:bg-card dg:text-foreground",
+  "dg:hover:bg-accent dg:hover:text-accent-foreground",
+  "dg:data-[state=on]:bg-primary dg:data-[state=on]:text-primary-foreground dg:data-[state=on]:border-primary",
+  "dg:data-[state=on]:hover:bg-[var(--primary-hover)]",
+  "dg:data-[state=off]:text-muted-foreground",
 );
 
 export function AgentMicrophoneButton({

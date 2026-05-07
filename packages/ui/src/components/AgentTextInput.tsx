@@ -41,7 +41,7 @@ export function AgentTextInput({
   const isDisabled = disabled || !isActive;
 
   return (
-    <div className={cn("flex items-center gap-2 flex-1", className)} data-agent-text-input>
+    <div className={cn("dg:flex dg:items-center dg:gap-2 dg:flex-1", className)} data-agent-text-input>
       <Textarea
         value={value}
         onChange={(e) => setValue(e.target.value)}
@@ -52,7 +52,7 @@ export function AgentTextInput({
         disabled={isDisabled}
         aria-label="Message input"
         rows={1}
-        className="min-h-[42px] max-h-[120px] resize-none py-2.5 text-sm"
+        className="dg:min-h-[42px] dg:max-h-[120px] dg:resize-none dg:py-2.5 dg:text-sm"
       />
       {submitButton !== undefined ? (
         <Button
@@ -61,7 +61,7 @@ export function AgentTextInput({
           onClick={handleSend}
           disabled={isDisabled || !value.trim()}
           aria-label="Send"
-          className="shrink-0 text-muted-foreground hover:text-primary"
+          className="dg:shrink-0 dg:text-muted-foreground dg:hover:text-primary"
         >
           {submitButton}
         </Button>
@@ -72,7 +72,7 @@ export function AgentTextInput({
           onClick={handleSend}
           disabled={isDisabled || !value.trim()}
           aria-label="Send"
-          className="shrink-0 text-muted-foreground hover:text-primary"
+          className="dg:shrink-0 dg:text-muted-foreground dg:hover:text-primary"
         >
           <SendIcon />
         </Button>
