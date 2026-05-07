@@ -1,21 +1,23 @@
-/* Tailwind v4 imports, granular so we can scope preflight.
+/* Tailwind v4 imports for @deepgram/ui.
  *
- * The full `@import "tailwindcss";` shortcut pulls preflight in at the global
- * scope, which uses universal selectors (`*, ::before, ::after`, `html`, `body`)
- * that bleed onto any host page that loads the bundle. The
- * `tailwindcss-scoped-preflight` plugin rewrites every preflight rule with a
- * `[data-dg-agent]` ancestor, so the reset only applies to widget descendants.
+ * Two scoping mechanisms keep this bundle safe to load on any host page:
  *
- * Theme tokens and utilities stay global so embedders building their own
- * widget layouts with @deepgram/ui components continue to get class-based
- * styling via Tailwind utilities.
+ * 1. `prefix(dg)` namespaces every utility, component, and typography class
+ *    under a `dg:` variant prefix, so `.flex` becomes `.dg:flex`. The host
+ *    page's own Tailwind utilities never collide because their class names
+ *    live in a different namespace.
  *
- * Do NOT add `@import "tailwindcss";` back. Granular imports + the plugin are
- * the contract that keeps the host page untouched.
+ * 2. `tailwindcss-scoped-preflight` rewrites every preflight rule with a
+ *    `[data-dg-agent]` ancestor so the universal-selector reset
+ *    (`*, ::before, ::after`, `html`, `body`) only applies inside widget
+ *    descendants and never bleeds onto the host page.
+ *
+ * Together, the bundle ships zero unscoped global selectors AND zero
+ * unprefixed utility class names. Any consumer of this package writing
+ * components must use the `dg:` prefix on Tailwind classes.
  */
 @layer theme, base, components, utilities;
-@import "tailwindcss/theme.css" layer(theme);
-@import "tailwindcss/utilities.css" layer(utilities);
+@import "tailwindcss" prefix(dg);
 @plugin "@tailwindcss/typography";
 @plugin "tailwindcss-scoped-preflight" {
   isolation-strategy: inside;

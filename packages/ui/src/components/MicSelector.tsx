@@ -86,7 +86,7 @@ export function MicSelector({
       disabled={disabled || loading}
     >
       <SelectTrigger
-        className={cn("text-sm", className)}
+        className={cn("dg:text-sm", className)}
         data-agent-mic-selector
         aria-label="Select microphone"
       >

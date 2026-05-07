@@ -19,7 +19,7 @@ export function AgentStatus({ className, labels }: AgentStatusProps) {
   const label = { ...DEFAULT_LABELS, ...labels }[state] ?? state;
   return (
     <span
-      className={cn("flex items-center gap-1.5 text-xs text-muted-foreground", className)}
+      className={cn("dg:flex dg:items-center dg:gap-1.5 dg:text-xs dg:text-muted-foreground", className)}
       data-agent-status
       data-state={state}
       aria-live="polite"

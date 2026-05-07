@@ -64,27 +64,27 @@ export function VoiceButton({ className, labels, onClick }: VoiceButtonProps) {
       onClick={handleClick}
       className={cn(
         // Base layout — override Button default sizing
-        "inline-flex items-center gap-2.5 px-7 py-3.5 text-[15px] font-semibold h-auto",
+        "dg:inline-flex dg:items-center dg:gap-2.5 dg:px-7 dg:py-3.5 dg:text-[15px] dg:font-semibold dg:h-auto",
         // Idle / base
-        "border border-border bg-card text-foreground",
-        "hover:bg-accent hover:border-primary",
-        "active:bg-[var(--accent-active)]",
-        "focus-visible:outline-2 focus-visible:outline-primary focus-visible:outline-offset-2",
+        "dg:border dg:border-border dg:bg-card dg:text-foreground",
+        "dg:hover:bg-accent dg:hover:border-primary",
+        "dg:active:bg-[var(--accent-active)]",
+        "dg:focus-visible:outline-2 dg:focus-visible:outline-primary dg:focus-visible:outline-offset-2",
         // Connecting — subtle pulse
-        voiceState === "connecting" && "animate-dg-pulse-fast",
+        voiceState === "connecting" && "dg:animate-dg-pulse-fast",
         // Listening — accent border glow (box-shadow rule lives in @layer components)
-        voiceState === "listening" && "border-primary",
+        voiceState === "listening" && "dg:border-primary",
         // Speaking — primary fill, pulse
         voiceState === "speaking" && [
-          "bg-primary text-primary-foreground border-primary",
-          "hover:bg-[var(--primary-hover)]",
-          "animate-dg-pulse-slow",
-          "[&_svg]:stroke-primary-foreground",
+          "dg:bg-primary dg:text-primary-foreground dg:border-primary",
+          "dg:hover:bg-[var(--primary-hover)]",
+          "dg:animate-dg-pulse-slow",
+          "dg:[&_svg]:stroke-primary-foreground",
         ],
         // Error (reserved for future use — exposed via data-voice-state for consumer styling)
-        (voiceState as string) === "error" && "border-destructive text-destructive hover:border-destructive",
+        (voiceState as string) === "error" && "dg:border-destructive dg:text-destructive dg:hover:border-destructive",
         // Connecting disabled cursor
-        isConnecting && "cursor-wait",
+        isConnecting && "dg:cursor-wait",
         className
       )}
     >

@@ -28,9 +28,9 @@ export function Response({ children, className }: ResponseProps) {
   return (
     <div
       className={cn(
-        "prose prose-sm dark:prose-invert max-w-none",
-        "prose-a:text-primary prose-code:text-foreground",
-        "prose-pre:bg-input prose-pre:border prose-pre:border-border",
+        "dg:prose dg:prose-sm dg:dark:prose-invert dg:max-w-none",
+        "dg:prose-a:text-primary dg:prose-code:text-foreground",
+        "dg:prose-pre:bg-input dg:prose-pre:border dg:prose-pre:border-border",
         className
       )}
       data-agent-response

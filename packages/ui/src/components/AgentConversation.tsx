@@ -26,13 +26,13 @@ export function AgentConversation({
 
   return (
     <div
-      className={cn("flex-1 min-h-0 overflow-y-auto", className)}
+      className={cn("dg:flex-1 dg:min-h-0 dg:overflow-y-auto", className)}
       style={{ scrollbarWidth: "thin" } as React.CSSProperties}
       data-agent-conversation
       aria-live="polite"
       aria-label="Conversation"
     >
-      <div className="flex flex-col gap-3 p-5 min-h-full">
+      <div className="dg:flex dg:flex-col dg:gap-3 dg:p-5 dg:min-h-full">
         {children}
         <div ref={bottomRef} aria-hidden="true" />
       </div>
@@ -67,28 +67,28 @@ export function AgentMessage({
     <div
       data-role={entry.role}
       className={cn(
-        "flex flex-col gap-1 max-w-[82%]",
-        isUser ? "self-end items-end" : "self-start items-start",
+        "dg:flex dg:flex-col dg:gap-1 dg:max-w-[82%]",
+        isUser ? "dg:self-end dg:items-end" : "dg:self-start dg:items-start",
         className,
       )}
     >
       {/* Role label */}
       {showRole && (
-        <span className="text-[10px] font-semibold uppercase tracking-widest opacity-50 px-1">
+        <span className="dg:text-[10px] dg:font-semibold dg:uppercase dg:tracking-widest dg:opacity-50 dg:px-1">
           {isUser ? "You" : "Agent"}
         </span>
       )}
 
       {/* Avatar + bubble */}
       <div className={cn(
-        "flex items-end gap-2",
-        isUser ? "flex-row-reverse" : "flex-row",
+        "dg:flex dg:items-end dg:gap-2",
+        isUser ? "dg:flex-row-reverse" : "dg:flex-row",
       )}>
         {/* Gradient avatar — assistant only */}
         {!isUser && (
           <div
             aria-hidden="true"
-            className="size-6 rounded-full shrink-0 flex items-center justify-center mb-px bg-gradient-to-br from-primary to-[#149afb]"
+            className="dg:size-6 dg:rounded-full dg:shrink-0 dg:flex dg:items-center dg:justify-center dg:mb-px dg:bg-gradient-to-br dg:from-primary dg:to-[#149afb]"
           >
             <svg width="11" height="11" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M12 2a3 3 0 0 1 3 3v7a3 3 0 0 1-6 0V5a3 3 0 0 1 3-3Z" fill="white"/>
@@ -100,10 +100,10 @@ export function AgentMessage({
 
         {/* Bubble */}
         <div className={cn(
-          "px-4 py-3 text-sm leading-normal break-words border text-foreground",
+          "dg:px-4 dg:py-3 dg:text-sm dg:leading-normal dg:break-words dg:border dg:text-foreground",
           isUser
-            ? "rounded-2xl rounded-br-sm bg-[var(--msg-user-bg)] border-[var(--msg-user-border)]"
-            : "rounded-2xl rounded-bl-sm bg-card border-border shadow-sm",
+            ? "dg:rounded-2xl dg:rounded-br-sm dg:bg-[var(--msg-user-bg)] dg:border-[var(--msg-user-border)]"
+            : "dg:rounded-2xl dg:rounded-bl-sm dg:bg-card dg:border-border dg:shadow-sm",
         )}>
           {children ?? entry.content}
         </div>
@@ -111,7 +111,7 @@ export function AgentMessage({
 
       {/* Timestamp */}
       {showTimestamp && entry.timestamp && (
-        <span className="text-[10px] opacity-40 px-1 tabular-nums">
+        <span className="dg:text-[10px] dg:opacity-40 dg:px-1 dg:tabular-nums">
           {formatTime(entry.timestamp)}
         </span>
       )}
