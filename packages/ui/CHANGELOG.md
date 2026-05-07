@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/deepgram/ui/compare/ui-v0.1.1...ui-v0.1.2) (2026-05-07)
+
+
+### Bug Fixes
+
+* **ui:** namespace tailwind utilities under dg: prefix to stop host-page collisions ([#32](https://github.com/deepgram/ui/issues/32)) ([2b342b7](https://github.com/deepgram/ui/commit/2b342b732311442e71074e01d2684e45a774a430))
+
 ## [0.1.1](https://github.com/deepgram/ui/compare/ui-v0.1.0...ui-v0.1.1) (2026-05-06)
 
 
