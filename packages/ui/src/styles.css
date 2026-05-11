@@ -84,7 +84,41 @@
     --dg-va-padding:  16px;
   }
 
-  /* Dark mode token overrides — explicit values, no light-dark() polyfill needed */
+  /* Bridge unprefixed theme tokens (public API) to Tailwind v4's prefixed
+   * namespace. With `prefix(dg)` on the utilities import, generated rules
+   * read `var(--dg-color-card)` etc., so dark-mode overrides and external
+   * theme overrides on the unprefixed `--color-*` API don't reach the
+   * utilities unless aliased here. The `@theme` block declares the public
+   * `--color-*` tokens; this block keeps `--dg-color-*` pointing at them
+   * through the cascade, so overriding the public token automatically
+   * updates everything Tailwind emits. */
+  [data-dg-agent] {
+    --dg-color-primary:                var(--color-primary);
+    --dg-color-primary-foreground:     var(--color-primary-foreground);
+    --dg-color-background:             var(--color-background);
+    --dg-color-foreground:             var(--color-foreground);
+    --dg-color-card:                   var(--color-card);
+    --dg-color-card-foreground:        var(--color-card-foreground);
+    --dg-color-popover:                var(--color-popover);
+    --dg-color-popover-foreground:     var(--color-popover-foreground);
+    --dg-color-muted:                  var(--color-muted);
+    --dg-color-muted-foreground:       var(--color-muted-foreground);
+    --dg-color-accent:                 var(--color-accent);
+    --dg-color-accent-foreground:      var(--color-accent-foreground);
+    --dg-color-input:                  var(--color-input);
+    --dg-color-border:                 var(--color-border);
+    --dg-color-ring:                   var(--color-ring);
+    --dg-color-secondary:              var(--color-secondary);
+    --dg-color-secondary-foreground:   var(--color-secondary-foreground);
+    --dg-color-destructive:            var(--color-destructive);
+    --dg-color-destructive-foreground: var(--color-destructive-foreground);
+    --dg-radius:                       var(--radius);
+    --dg-font-sans:                    var(--font-sans);
+  }
+
+  /* Dark mode token overrides — explicit values, no light-dark() polyfill needed.
+   * Only the unprefixed `--color-*` tokens need overriding; the alias block
+   * above propagates them to Tailwind's `--dg-color-*` namespace. */
   [data-dg-agent][data-dg-scheme="dark"] {
     color-scheme: dark;
     --color-background:           #18181c;
