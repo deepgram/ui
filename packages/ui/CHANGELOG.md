@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/deepgram/ui/compare/ui-v0.1.3...ui-v0.1.4) (2026-05-11)
+
+
+### Bug Fixes
+
+* **ui:** alias --dg-color-* to --color-* so dark mode reaches utilities ([#37](https://github.com/deepgram/ui/issues/37)) ([f94cec8](https://github.com/deepgram/ui/commit/f94cec8bdf68f1a0d8385bfe4ecf966aecebb9cc))
+
 ## [0.1.3](https://github.com/deepgram/ui/compare/ui-v0.1.2...ui-v0.1.3) (2026-05-07)
 
 
