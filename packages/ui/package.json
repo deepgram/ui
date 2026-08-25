@@ -27,7 +27,7 @@
     "url": "https://github.com/deepgram/ui/issues"
   },
   "scripts": {
-    "build": "tsc --noEmit && vite build",
+    "build": "tsc --noEmit && vite build && vite build --config vite.styles.config.ts",
     "typecheck": "tsc --noEmit",
     "dev": "vite build --watch",
     "test": "bun test",
