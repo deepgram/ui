@@ -2,7 +2,17 @@
 
 Pre-built, styled React components for the [Deepgram Voice Agent API](https://developers.deepgram.com/docs/voice-agent). Fully customizable via CSS variables. Re-exports all hooks from [`@deepgram/react`](../react/) so you only need one import.
 
+## Status
+
+This package is pre-1.0. Interfaces may change between minor versions.
+
 ## Install
+
+```bash
+npm install @deepgram/ui react react-dom
+```
+
+or with Bun:
 
 ```bash
 bun add @deepgram/ui react react-dom

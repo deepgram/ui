@@ -6,6 +6,10 @@
 
 React UI component library for [Deepgram Voice Agent](https://developers.deepgram.com/docs/voice-agent) — Tailwind v4, shadcn/ui, fully themeable.
 
+## Status
+
+This library is pre-1.0. Interfaces may change between minor versions, and releases are cut as the library evolves rather than on a fixed schedule. This package and its siblings — [`@deepgram/agents`](https://github.com/deepgram/agent), [`@deepgram/react`](https://github.com/deepgram/react), and [`@deepgram/agents-widget`](https://github.com/deepgram/agent) — build on the [Deepgram Voice Agent API](https://developers.deepgram.com/docs/voice-agent) to provide embeddable browser components.
+
 ## Install
 
 ```bash
@@ -22,8 +26,20 @@ import {
   AgentMessage,
   AgentTextInput,
   AgentStatus,
+  useAgentConversation,
 } from "@deepgram/ui";
 import "@deepgram/ui/styles.css";
+
+function Conversation() {
+  const { conversation } = useAgentConversation();
+  return (
+    <AgentConversation>
+      {conversation.map((entry) => (
+        <AgentMessage key={entry.id} entry={entry} />
+      ))}
+    </AgentConversation>
+  );
+}
 
 function App() {
   return (
@@ -35,11 +51,7 @@ function App() {
     >
       <div data-dg-agent>
         <AgentStatus />
-        <AgentConversation>
-          {conversation.map((entry) => (
-            <AgentMessage key={entry.id} entry={entry} />
-          ))}
-        </AgentConversation>
+        <Conversation />
         <AgentTextInput />
         <AgentStartButton />
       </div>
