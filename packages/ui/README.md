@@ -4,7 +4,7 @@ Pre-built, styled React components for the [Deepgram Voice Agent API](https://de
 
 ## Status
 
-This package is experimental and pre-1.0. Interfaces may change between minor versions. For a production integration with the [Deepgram Voice Agent API](https://developers.deepgram.com/docs/voice-agent), the documented and supported path is the official JavaScript SDK, [`@deepgram/sdk`](https://github.com/deepgram/deepgram-js-sdk).
+This package is pre-1.0. Interfaces may change between minor versions.
 
 ## Install
 

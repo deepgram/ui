@@ -8,7 +8,7 @@ React UI component library for [Deepgram Voice Agent](https://developers.deepgra
 
 ## Status
 
-This library is experimental and pre-1.0. Interfaces may change between minor versions, and releases are cut as the library evolves rather than on a fixed schedule. For a production integration with the [Deepgram Voice Agent API](https://developers.deepgram.com/docs/voice-agent), the documented and supported path is the official JavaScript SDK, [`@deepgram/sdk`](https://github.com/deepgram/deepgram-js-sdk). This package and its siblings — [`@deepgram/agents`](https://github.com/deepgram/agent), [`@deepgram/react`](https://github.com/deepgram/react), and [`@deepgram/agents-widget`](https://github.com/deepgram/agent) — build on that API to provide embeddable browser components and are ready to evaluate and prototype with today.
+This library is pre-1.0. Interfaces may change between minor versions, and releases are cut as the library evolves rather than on a fixed schedule. This package and its siblings — [`@deepgram/agents`](https://github.com/deepgram/agent), [`@deepgram/react`](https://github.com/deepgram/react), and [`@deepgram/agents-widget`](https://github.com/deepgram/agent) — build on the [Deepgram Voice Agent API](https://developers.deepgram.com/docs/voice-agent) to provide embeddable browser components.
 
 ## Install
 
