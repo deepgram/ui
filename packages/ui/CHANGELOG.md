@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.1.5](https://github.com/deepgram/ui/compare/ui-v0.1.4...ui-v0.1.5) (2026-09-17)
+
+
+### Bug Fixes
+
+* compile the standalone styles.css export instead of shipping raw Tailwind source ([#52](https://github.com/deepgram/ui/issues/52)) ([6256849](https://github.com/deepgram/ui/commit/6256849ae3752b64c02ab4c90a5ba6db28dafbc5))
+* **ui:** compile the standalone styles.css export instead of shipping raw Tailwind source ([cc35a4c](https://github.com/deepgram/ui/commit/cc35a4c2bef922fc4a398e2e941680534b698740))
+* **ui:** verify standalone CSS export ([2163fc6](https://github.com/deepgram/ui/commit/2163fc662ce987fc69215bbb9f06fb57cf18d008))
+
 ## [0.1.4](https://github.com/deepgram/ui/compare/ui-v0.1.3...ui-v0.1.4) (2026-05-11)
 
 
