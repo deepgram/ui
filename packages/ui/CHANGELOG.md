@@ -1,5 +1,28 @@
 # Changelog
 
+## [0.1.6](https://github.com/deepgram/ui/compare/ui-v0.1.5...ui-v0.1.6) (2026-09-17)
+
+
+### Features
+
+* initial @deepgram/ui and @deepgram/ui-registry packages ([abe0dd0](https://github.com/deepgram/ui/commit/abe0dd047669e45a04fecf1c8f1d414c59d9d199))
+
+
+### Bug Fixes
+
+* compile the standalone styles.css export instead of shipping raw Tailwind source ([#52](https://github.com/deepgram/ui/issues/52)) ([6256849](https://github.com/deepgram/ui/commit/6256849ae3752b64c02ab4c90a5ba6db28dafbc5))
+* **ui:** alias --dg-color-* to --color-* so dark mode reaches utilities ([#37](https://github.com/deepgram/ui/issues/37)) ([f94cec8](https://github.com/deepgram/ui/commit/f94cec8bdf68f1a0d8385bfe4ecf966aecebb9cc))
+* **ui:** compile the standalone styles.css export instead of shipping raw Tailwind source ([cc35a4c](https://github.com/deepgram/ui/commit/cc35a4c2bef922fc4a398e2e941680534b698740))
+* **ui:** keep tailwind imports granular so preflight stays scoped ([#34](https://github.com/deepgram/ui/issues/34)) ([b724a91](https://github.com/deepgram/ui/commit/b724a911dff9521877bc485621e98ae1b2c6631d))
+* **ui:** namespace tailwind utilities under dg: prefix to stop host-page collisions ([#32](https://github.com/deepgram/ui/issues/32)) ([2b342b7](https://github.com/deepgram/ui/commit/2b342b732311442e71074e01d2684e45a774a430))
+* **ui:** scope tailwind preflight to [data-dg-agent] via plugin ([#27](https://github.com/deepgram/ui/issues/27)) ([8742c18](https://github.com/deepgram/ui/commit/8742c189c1204647e973827de57f16678aea29cd))
+* **ui:** verify standalone CSS export ([2163fc6](https://github.com/deepgram/ui/commit/2163fc662ce987fc69215bbb9f06fb57cf18d008))
+
+
+### Refactors
+
+* Tailwind migration, code review fixes, supply chain hardening ([cd83f9b](https://github.com/deepgram/ui/commit/cd83f9bc56b76c81b26691799de0751fb385baf5))
+
 ## [0.1.5](https://github.com/deepgram/ui/compare/ui-v0.1.4...ui-v0.1.5) (2026-09-17)
 
 
