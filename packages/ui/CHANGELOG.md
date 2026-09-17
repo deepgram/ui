@@ -5,7 +5,7 @@
 
 ### Bug Fixes
 
-* **build:** configure vite-plugin-dts v5 ([d1640f2](https://github.com/deepgram/ui/commit/d1640f2586c846c0d89c8ee7674eeb2c8b6a88ed))
+* **build:** preserve bundled TypeScript declarations after upgrading `vite-plugin-dts` to v5 ([#17](https://github.com/deepgram/ui/issues/17)) ([d1640f2](https://github.com/deepgram/ui/commit/d1640f2586c846c0d89c8ee7674eeb2c8b6a88ed))
 
 ## [0.1.5](https://github.com/deepgram/ui/compare/ui-v0.1.4...ui-v0.1.5) (2026-09-17)
 
