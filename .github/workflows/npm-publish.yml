@@ -40,7 +40,7 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 22
+          node-version: 24
           registry-url: https://registry.npmjs.org
 
       - run: bun install
@@ -49,8 +49,6 @@ jobs:
 
       - run: npm publish --provenance --access public
         working-directory: packages/ui
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_DEEPGRAM_TOKEN }}
 
   publish-cdn-registry:
     needs: release-please

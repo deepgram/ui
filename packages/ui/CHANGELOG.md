@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.5](https://github.com/deepgram/ui/compare/ui-v0.1.4...ui-v0.1.5) (2026-09-17)
+
+
+### Bug Fixes
+
+* **ui:** compile the standalone `styles.css` export before publishing, so consumer bundlers receive regular CSS instead of Tailwind source directives ([#52](https://github.com/deepgram/ui/issues/52)) ([6256849](https://github.com/deepgram/ui/commit/6256849ae3752b64c02ab4c90a5ba6db28dafbc5))
+
 ## [0.1.4](https://github.com/deepgram/ui/compare/ui-v0.1.3...ui-v0.1.4) (2026-05-11)
 
 
