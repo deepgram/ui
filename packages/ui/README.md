@@ -2,7 +2,17 @@
 
 Pre-built, styled React components for the [Deepgram Voice Agent API](https://developers.deepgram.com/docs/voice-agent). Fully customizable via CSS variables. Re-exports all hooks from [`@deepgram/react`](../react/) so you only need one import.
 
+## Status
+
+This package is pre-1.0. Interfaces may change between minor versions.
+
 ## Install
+
+```bash
+npm install @deepgram/ui react react-dom
+```
+
+or with Bun:
 
 ```bash
 bun add @deepgram/ui react react-dom
@@ -185,38 +195,31 @@ Override any token on `[data-dg-agent]`:
 
 ```css
 [data-dg-agent] {
-  --dg-va-primary: #6366f1;
-  --dg-va-bg: #0d1117;
-  --dg-va-text: #e6e6e6;
+  --color-primary: #6366f1;
+  --color-background: #0d1117;
+  --color-foreground: #e6e6e6;
 }
 ```
 
-Full token list:
+Theme tokens:
 
 | Token | Description | Default |
 |-------|-------------|---------|
-| `--dg-va-primary` | Brand/accent color | `#13EF93` |
-| `--dg-va-primary-hover` | Accent hover | `color-mix(85% primary, #000)` |
-| `--dg-va-primary-active` | Accent pressed | `color-mix(70% primary, #000)` |
-| `--dg-va-on-primary` | Text on primary bg | `light-dark(#000, #000)` |
-| `--dg-va-bg` | Panel background | `light-dark(#fff, #18181c)` |
-| `--dg-va-bg-raised` | Cards, bubbles | `light-dark(#f3f4f6, #222228)` |
-| `--dg-va-bg-input` | Input field bg | `light-dark(#f3f4f6, #1e1e24)` |
-| `--dg-va-bg-hover` | Surface hover | `light-dark(#f9fafb, #1a1a1f)` |
-| `--dg-va-bg-active` | Surface pressed | `light-dark(#f3f4f6, #222228)` |
-| `--dg-va-text` | Primary text | `light-dark(#111827, #fff)` |
-| `--dg-va-text-muted` | Secondary text | `light-dark(#6b7280, #8b8b9a)` |
-| `--dg-va-border` | Borders | `light-dark(rgba(0,0,0,.1), rgba(255,255,255,.08))` |
-| `--dg-va-error` | Error color | `light-dark(#dc2626, #ef4444)` |
-| `--dg-va-warning` | Connecting color | `#f59e0b` |
-| `--dg-va-msg-user-bg` | User bubble bg | -- |
-| `--dg-va-msg-user-border` | User bubble border | -- |
-| `--dg-va-radius` | Panel radius | `16px` |
-| `--dg-va-btn-radius` | Button radius | `10px` |
-| `--dg-va-input-radius` | Input radius | `8px` |
-| `--dg-va-msg-radius` | Message radius | `12px` |
-| `--dg-va-padding` | Content padding | `16px` |
-| `--dg-va-font` | Font family | `system-ui, -apple-system, sans-serif` |
+| `--color-primary` | Brand/accent color | `#13EF93` |
+| `--color-primary-foreground` | Text on primary backgrounds | `#000000` |
+| `--color-background` | Panel background | `#ffffff` |
+| `--color-foreground` | Primary text | `#111827` |
+| `--color-card` / `--color-card-foreground` | Card backgrounds and text | `#f3f4f6` / `#111827` |
+| `--color-popover` / `--color-popover-foreground` | Popover backgrounds and text | `#ffffff` / `#111827` |
+| `--color-muted` / `--color-muted-foreground` | Muted backgrounds and text | `#f3f4f6` / `#6b7280` |
+| `--color-accent` / `--color-accent-foreground` | Accent backgrounds and text | `#f9fafb` / `#111827` |
+| `--color-input` | Input background | `#f3f4f6` |
+| `--color-border` | Borders | `rgba(0, 0, 0, 0.1)` |
+| `--color-ring` | Focus rings | `#13EF93` |
+| `--color-secondary` / `--color-secondary-foreground` | Secondary backgrounds and text | `#f3f4f6` / `#111827` |
+| `--color-destructive` / `--color-destructive-foreground` | Destructive states | `#dc2626` / `#ffffff` |
+| `--radius` | Component corner radius | `1rem` |
+| `--font-sans` | Font family | `system-ui, -apple-system, sans-serif` |
 
 ### Dark Mode
 

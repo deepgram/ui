@@ -1,6 +1,4 @@
 import { defineConfig } from "vite";
-import { copyFileSync, mkdirSync } from "node:fs";
-import { resolve } from "node:path";
 import tailwindcss from "@tailwindcss/vite";
 import react from "@vitejs/plugin-react";
 import cssInjected from "vite-plugin-css-injected-by-js";
@@ -34,16 +32,10 @@ export default defineConfig({
     // when it imports @deepgram/ui/dist/index.js.
     cssInjected(),
     dts({ rollupTypes: true }),
-    // Copy standalone styles.css to dist for @deepgram/ui/styles.css
-    {
-      name: "copy-styles",
-      closeBundle() {
-        mkdirSync(resolve(__dirname, "dist"), { recursive: true });
-        copyFileSync(
-          resolve(__dirname, "src/styles.css"),
-          resolve(__dirname, "dist/styles.css"),
-        );
-      },
-    },
+    // The standalone stylesheet for the `@deepgram/ui/styles.css` export is
+    // built by a second Vite pass (vite.styles.config.ts) that compiles
+    // src/styles.css through Tailwind. It was previously copied verbatim,
+    // which shipped raw Tailwind source (@import/@plugin directives) that
+    // consumer bundlers reject.
   ],
 });

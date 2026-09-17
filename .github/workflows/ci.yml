@@ -31,6 +31,19 @@ jobs:
       - name: Build
         run: bun run build
 
+      - name: Verify standalone CSS export
+        run: |
+          test -f packages/ui/dist/styles.css
+          ! grep -Eq '@(import|plugin|source)[[:space:]]' packages/ui/dist/styles.css
+          npm pack --dry-run --json --workspace @deepgram/ui | node -e '
+            let output = "";
+            process.stdin.on("data", (chunk) => output += chunk);
+            process.stdin.on("end", () => {
+              const [{ files }] = JSON.parse(output);
+              if (!files.some(({ path }) => path === "dist/styles.css")) process.exit(1);
+            });
+          '
+
       - name: Build registry
         run: bun run build:registry
 
