@@ -31,7 +31,7 @@ export default defineConfig({
     // (including @deepgram/agents-widget) gets the styles automatically
     // when it imports @deepgram/ui/dist/index.js.
     cssInjected(),
-    dts({ rollupTypes: true }),
+    dts({ bundleTypes: true }),
     // The standalone stylesheet for the `@deepgram/ui/styles.css` export is
     // built by a second Vite pass (vite.styles.config.ts) that compiles
     // src/styles.css through Tailwind. It was previously copied verbatim,
